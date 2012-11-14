@@ -132,7 +132,7 @@ public class testPlay extends javax.swing.JDialog {
       
         pnMain.removeAll();
         String s="*;*;C;*;*;*;*;*;A;*;*;*;*;*;T;E;E;N;*;*;*;*;*;O;*;*;*;*;*;O;*;*;*;*;*;N;";
-        s="*;*;C;A;T;H;*;*;A;*;*;*;*;*;T;E;E;N;*;*;*;*;*;O;*;*;*;*;*;O;*;*;*;*;*;N;";
+        s="-;-;C;A;T;H;-;-;A;-;-;-;-;-;T;E;E;N;-;-;-;-;-;O;-;-;-;-;-;O;-;-;-;-;-;N;";
 
         pnP.setKeywords("CAT;NOON;TEEN;CATH");
         pnP.setWords(s);

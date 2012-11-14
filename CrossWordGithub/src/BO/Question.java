@@ -9,5 +9,5 @@ package BO;
  * @author Data
  */
 public class Question {
-    //det me t nam
+    
 }

@@ -39,7 +39,7 @@ public class pnPlay extends javax.swing.JPanel {
         
         //them dau * vao hai dau
         for (int i=0; i < word.length;i++){
-            word[i] = "*"+ word[i]+"*";
+            word[i] = "-"+ word[i]+"-";
         }
         
         String[] code = getCode().split(";");
@@ -55,11 +55,11 @@ public class pnPlay extends javax.swing.JPanel {
         }
 
         for (int i = 0; i < sizexy; i++) {
-            String acorss = "*";
+            String acorss = "-";
             for (int j = 0; j < sizexy; j++) {
                 acorss += axy[i][j];
             }
-           acorss += "*";
+           acorss += "-";
             
 //            String ac[] = acorss.split("*");
 //            int max = ac[0].length();
@@ -79,11 +79,11 @@ public class pnPlay extends javax.swing.JPanel {
         }
 
         for (int j = 0; j < sizexy; j++) {
-            String down = "*";;
+            String down = "-";;
             for (int i = 0; i < sizexy; i++) {
                 down += axy[i][j];
             }
-           down +="*";
+           down +="-";
 //             String ac[] = down.split("*");
 //            int max = ac[0].length();
 //            int index = 0;
@@ -161,7 +161,7 @@ public class pnPlay extends javax.swing.JPanel {
         String s = "";
         for (int i = 0; i < sizexy * sizexy; i++) {
             if ("".equals(jtext[i].getText())) {
-                s += "*;";
+                s += "-;";
             } else {
                 s += jtext[i].getText().toUpperCase() + ";";
             }
@@ -197,9 +197,9 @@ public class pnPlay extends javax.swing.JPanel {
 
             this.add(jtext[i]);
 //            this.add(jtext[i]);
-            if (a[i].equals("*")) {
+            if (a[i].equals("-")) {
                 jtext[i].setVisible(false);
-                jtext[i].setText("*");
+                jtext[i].setText("-");
             } else {
                 jtext[i].setText(" ");
             }
