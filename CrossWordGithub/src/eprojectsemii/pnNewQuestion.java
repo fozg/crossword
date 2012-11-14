@@ -25,9 +25,6 @@ public class pnNewQuestion extends javax.swing.JPanel {
     private String keywords;      //  chứa các kết quả của câu hỏi
     private int point;
 
-    public pnNewQuestion() {
-        initComponents();
-    }
 
     //khoi tao kich thuoc cua question
     public void setSizexy(int x) {
@@ -49,7 +46,7 @@ public class pnNewQuestion extends javax.swing.JPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 int code = (int) e.getKeyChar();
-
+                      par.setEditable(true);
                 if (code > 64 && code < 123) {
                     if (!"".equals(par.getText())) {
                         par.setText((par.getText().substring(1) + "").toUpperCase());
@@ -62,6 +59,7 @@ public class pnNewQuestion extends javax.swing.JPanel {
 
             @Override
             public void keyReleased(KeyEvent e) {
+                par.setEditable(true);
             }
         });
     }
@@ -74,12 +72,13 @@ public class pnNewQuestion extends javax.swing.JPanel {
         for (int i = 0; i < sizexy * sizexy; i++) {
 
             jtext[i] = new JTextField();
-            //jtext[i].setSize(30, 30);
+            jtext[i].setSize(30, 30);
             jtext[i].setFont(new Font("Tahoma", 0, 14));
             jtext[i].setHorizontalAlignment(JTextField.CENTER);
             jtext[i].setBackground(new Color(181, 230, 29));
             jtext[i].setBorder(new LineBorder(new Color(240, 240, 240), 1));
             jtext[i].setText("");
+            this.add(jtext[i]);
             listenKey(jtext[i]);
 
 

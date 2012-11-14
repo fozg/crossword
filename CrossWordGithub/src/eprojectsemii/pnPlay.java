@@ -21,9 +21,6 @@ import javax.swing.border.LineBorder;
  */
 public class pnPlay extends javax.swing.JPanel {
 
-    /**
-     * Creates new form pnPlay
-     */
     private String[] a;
     private JTextField[] jtext;
     private int sizexy;       // kích thước của câu hỏi (sizexy * sizyxy)
@@ -120,6 +117,7 @@ public class pnPlay extends javax.swing.JPanel {
         par.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
+                par.setEditable(true);
             }
 
             @Override
@@ -138,6 +136,7 @@ public class pnPlay extends javax.swing.JPanel {
 
             @Override
             public void keyReleased(KeyEvent e) {
+                par.setEditable(true);
             }
         });
     }
