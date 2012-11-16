@@ -9,99 +9,105 @@ package entities;
  * @author Data
  */
 public class Question {
-    private String QuestionID;
-    private int QuestionSize;       // size of question
-    private String QuestionTitle;    //title question 
-    private String QuestionCode;      
-    private String QuestionKeyAcross;
-    private String QuestionKeyDown;
-    private String QuestionHintAcross;
-    private String QuestionHintDown;
-    private int QuestionDifficult;
+    private String questionID;
+    private int questionSize;       // size of question
+    private String questionTitle;    //title question 
+    private String questionCode;      
+    private String questionKeyAcross;
+    private String questionKeyDown;
+    private String questionHintAcross;
+    private String questionHintDown;
+    private int questionDifficult;
 
-    public Question(String QuestionID, int QuestionSize, String QuestionTitle, String QuestionCode, String QuestionKeyAcross, String QuestionKeyDown, String QuestionHintAcross, String QuestionHintDown, int QuestionDifficult) {
-        this.QuestionID = QuestionID;
-        this.QuestionSize = QuestionSize;
-        this.QuestionTitle = QuestionTitle;
-        this.QuestionCode = QuestionCode;
-        this.QuestionKeyAcross = QuestionKeyAcross;
-        this.QuestionKeyDown = QuestionKeyDown;
-        this.QuestionHintAcross = QuestionHintAcross;
-        this.QuestionHintDown = QuestionHintDown;
-        this.QuestionDifficult = QuestionDifficult;
+    public Question() {
+    }
+
+    
+    public Question(String questionID, int questionSize, String questionTitle, String questionCode, String questionKeyAcross, String questionKeyDown, String questionHintAcross, String questionHintDown, int questionDifficult) {
+        this.questionID = questionID;
+        this.questionSize = questionSize;
+        this.questionTitle = questionTitle;
+        this.questionCode = questionCode;
+        this.questionKeyAcross = questionKeyAcross;
+        this.questionKeyDown = questionKeyDown;
+        this.questionHintAcross = questionHintAcross;
+        this.questionHintDown = questionHintDown;
+        this.questionDifficult = questionDifficult;
     }
 
     public String getQuestionID() {
-        return QuestionID;
+        return questionID;
     }
 
-    public void setQuestionID(String QuestionID) {
-        this.QuestionID = QuestionID;
+    public void setQuestionID(String questionID) {
+        this.questionID = questionID;
     }
 
     public int getQuestionSize() {
-        return QuestionSize;
+        return questionSize;
     }
 
-    public void setQuestionSize(int QuestionSize) {
-        this.QuestionSize = QuestionSize;
+    public void setQuestionSize(int questionSize) {
+        this.questionSize = questionSize;
     }
 
     public String getQuestionTitle() {
-        return QuestionTitle;
+        return questionTitle;
     }
 
-    public void setQuestionTitle(String QuestionTitle) {
-        this.QuestionTitle = QuestionTitle;
+    public void setQuestionTitle(String questionTitle) {
+        this.questionTitle = questionTitle;
     }
 
     public String getQuestionCode() {
-        return QuestionCode;
+        return questionCode;
     }
 
-    public void setQuestionCode(String QuestionCode) {
-        this.QuestionCode = QuestionCode;
+    public void setQuestionCode(String questionCode) {
+        this.questionCode = questionCode;
     }
 
     public String getQuestionKeyAcross() {
-        return QuestionKeyAcross;
+        return questionKeyAcross;
     }
 
-    public void setQuestionKeyAcross(String QuestionKeyAcross) {
-        this.QuestionKeyAcross = QuestionKeyAcross;
+    public void setQuestionKeyAcross(String questionKeyAcross) {
+        this.questionKeyAcross = questionKeyAcross;
     }
 
     public String getQuestionKeyDown() {
-        return QuestionKeyDown;
+        return questionKeyDown;
     }
 
-    public void setQuestionKeyDown(String QuestionKeyDown) {
-        this.QuestionKeyDown = QuestionKeyDown;
+    public void setQuestionKeyDown(String questionKeyDown) {
+        this.questionKeyDown = questionKeyDown;
     }
 
     public String getQuestionHintAcross() {
-        return QuestionHintAcross;
+        return questionHintAcross;
     }
 
-    public void setQuestionHintAcross(String QuestionHintAcross) {
-        this.QuestionHintAcross = QuestionHintAcross;
+    public void setQuestionHintAcross(String questionHintAcross) {
+        this.questionHintAcross = questionHintAcross;
     }
 
     public String getQuestionHintDown() {
-        return QuestionHintDown;
+        return questionHintDown;
     }
 
-    public void setQuestionHintDown(String QuestionHintDown) {
-        this.QuestionHintDown = QuestionHintDown;
+    public void setQuestionHintDown(String questionHintDown) {
+        this.questionHintDown = questionHintDown;
     }
 
     public int getQuestionDifficult() {
-        return QuestionDifficult;
+        return questionDifficult;
     }
 
-    public void setQuestionDifficult(int QuestionDifficult) {
-        this.QuestionDifficult = QuestionDifficult;
+    public void setQuestionDifficult(int questionDifficult) {
+        this.questionDifficult = questionDifficult;
     }
+
+  
     
     
     

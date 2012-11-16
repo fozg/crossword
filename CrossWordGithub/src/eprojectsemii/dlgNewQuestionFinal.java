@@ -4,6 +4,8 @@
  */
 package eprojectsemii;
 
+import data.Questions;
+import entities.Question;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,7 +48,7 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
         btnPreview = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         lbSelect = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cbDifficult = new javax.swing.JComboBox();
         jLabel15 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -101,6 +103,11 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
 
         btnCreate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnCreate.setText("Create");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +136,7 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
 
         lbSelect.setText("Select: ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Easy", "Normal", "Hard" }));
+        cbDifficult.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Easy", "Normal", "Hard" }));
 
         jLabel15.setText("Step 5: Choose difficult");
 
@@ -155,7 +162,7 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbDifficult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel13)
                         .addGap(18, 18, 18)
@@ -182,7 +189,7 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
                     .addComponent(btnCreate)
                     .addComponent(btnCancel)
                     .addComponent(jLabel13)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbDifficult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
                 .addContainerGap())
         );
@@ -389,7 +396,7 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     pnNewQuestion pnq;
-    
+    private int size = 4;
     //Set kich thuoc cho question
     private void cbSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSizeActionPerformed
         pnq = new pnNewQuestion();
@@ -397,14 +404,17 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
         pnMain.repaint();
         switch (cbSize.getSelectedIndex()) {
             case 0:
+                size = 4;
                 pnq.setSizexy(4);
                 pnMain.setSize(200, 200);
                 break;
             case 1:
+                size =6;
                 pnq.setSizexy(6);
                 pnMain.setSize(300, 300);
                 break;
             case 2:
+                size = 8;
                 pnq.setSizexy(8);
                 pnMain.setSize(400, 400);
                 break;
@@ -419,7 +429,13 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
     private void btnPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviewActionPerformed
         JOptionPane.showMessageDialog(this, pnq.getCode());
     }//GEN-LAST:event_btnPreviewActionPerformed
-    
+    private String ArraytoString(String[] a){
+        String s="";
+        for (int i=0;i<a.length;i++){
+            s+= a[i]+";";
+        }
+        return s;
+    }
     String[] keywordsAcross;
     String[] keywordsDown;
     private void btnCreateHintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateHintActionPerformed
@@ -472,6 +488,23 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_brnDelDownActionPerformed
 
+    //insert question
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        Questions q = new Questions();
+        String code = pnq.getCode();
+        String title = txtTitle.getText();
+        String kwDown = ArraytoString(keywordsDown);
+        String kwAcross = ArraytoString(keywordsAcross);
+        String hintAcross = txtHinAcross.getText();
+        String hintDown = txtHintDown.getText();
+        int diff = cbDifficult.getSelectedIndex()+1;
+        q.add(new Question("asdasd", size, title, code, kwAcross, kwDown, hintAcross, hintDown, diff));
+     //  q.add(new Question("ID1f01", 5, "Titsdfle", "3sdfw3d;sfw33", "key1sdfkey2", "sddsfifj", "oadsfidjfij", "hindsf", 34));
+//        q.add(new Question("id1", 8, "Cau hoi 1", pnq.getCode(), 
+//              "a", "b", "c", "d", 1));
+    //   q.add();
+    }//GEN-LAST:event_btnCreateActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -520,9 +553,9 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
     private javax.swing.JButton btnCreateHint;
     private javax.swing.JButton btnDelAcross;
     private javax.swing.JButton btnPreview;
+    private javax.swing.JComboBox cbDifficult;
     private javax.swing.JComboBox cbSize;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
