@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package BO;
+package data;
 
 /**
  *
- * @author Data
+ * @author Fozg
  */
-public class Question {
+public class Questions {
     
 }

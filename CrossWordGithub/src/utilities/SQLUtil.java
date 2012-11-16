@@ -7,7 +7,8 @@ package utilities;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 /**
  *
  * @author FOZG
@@ -38,9 +39,10 @@ public class SQLUtil {
         try {
             ResultSet rs;
             //Create statement
-            Statement stm = con.createStatement();
+           // Statement stm = con.createStatement();
+            PreparedStatement ps = con.prepareStatement(cmd);
             //run the statement and return result
-            rs = stm.executeQuery(cmd);
+            rs = ps.executeQuery();
             return rs;
         } catch (SQLException ex) {
             Logger.getLogger(SQLUtil.class.getName()).log(Level.SEVERE, null, ex);

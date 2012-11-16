@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.io.File;
+import javax.print.attribute.standard.Media;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -24,8 +26,7 @@ public class FrmMain extends javax.swing.JFrame {
      */
     public FrmMain() {
         initComponents();
-  
-
+        btnResume.setVisible(false);
     }
 
     /**
@@ -47,14 +48,16 @@ public class FrmMain extends javax.swing.JFrame {
                 super.paintComponent(g);
             }
         };
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnNewgame = new javax.swing.JButton();
+        btnPause = new javax.swing.JButton();
+        btnResume = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         btnOption = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnHighScore = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        btnMusic = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel(){
             ImageIcon icon = new ImageIcon("src/icons/bgtop2.png");
             public void paintComponent(Graphics g){
@@ -95,46 +98,51 @@ public class FrmMain extends javax.swing.JFrame {
         jToolBar1.setFloatable(false);
         jToolBar1.setBorderPainted(false);
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/newgame.png"))); // NOI18N
-        jButton1.setToolTipText("");
-        jButton1.setBorderPainted(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setMaximumSize(new java.awt.Dimension(117, 57));
-        jButton1.setMinimumSize(new java.awt.Dimension(117, 57));
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnNewgame.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
+        btnNewgame.setForeground(new java.awt.Color(255, 255, 255));
+        btnNewgame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/newgame.png"))); // NOI18N
+        btnNewgame.setToolTipText("");
+        btnNewgame.setBorderPainted(false);
+        btnNewgame.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNewgame.setFocusable(false);
+        btnNewgame.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnNewgame.setMaximumSize(new java.awt.Dimension(117, 57));
+        btnNewgame.setMinimumSize(new java.awt.Dimension(117, 57));
+        btnNewgame.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnNewgame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnNewgameActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton1);
+        jToolBar1.add(btnNewgame);
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pause.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnPause.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        btnPause.setForeground(new java.awt.Color(255, 255, 255));
+        btnPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pause.png"))); // NOI18N
+        btnPause.setBorderPainted(false);
+        btnPause.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPause.setFocusable(false);
+        btnPause.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPause.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPause.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnPauseActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton2);
+        jToolBar1.add(btnPause);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/resume.png"))); // NOI18N
-        jButton3.setBorderPainted(false);
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton3);
+        btnResume.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/resume.png"))); // NOI18N
+        btnResume.setBorderPainted(false);
+        btnResume.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnResume.setFocusable(false);
+        btnResume.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnResume.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnResume.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResumeActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnResume);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(181, 96, 166));
@@ -153,19 +161,37 @@ public class FrmMain extends javax.swing.JFrame {
         });
         jToolBar1.add(btnOption);
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/hightsocre.png"))); // NOI18N
-        jButton5.setFocusable(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnHighScore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/hightsocre.png"))); // NOI18N
+        btnHighScore.setFocusable(false);
+        btnHighScore.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnHighScore.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnHighScore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnHighScoreActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton5);
+        jToolBar1.add(btnHighScore);
+
+        jPanel1.setOpaque(false);
 
         jLabel2.setText("Question");
         jPanel1.add(jLabel2);
+
+        btnMusic.setText("Play music");
+        btnMusic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMusicActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnMusic);
+
+        jButton1.setText("Stop");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
 
         jLabel1.setText("Status");
         jPanel2.add(jLabel1);
@@ -174,7 +200,7 @@ public class FrmMain extends javax.swing.JFrame {
         pnMain.setLayout(pnMainLayout);
         pnMainLayout.setHorizontalGroup(
             pnMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 559, Short.MAX_VALUE)
+            .addGap(0, 469, Short.MAX_VALUE)
         );
         pnMainLayout.setVerticalGroup(
             pnMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,12 +271,13 @@ public class FrmMain extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
                         .addComponent(pnMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,7 +308,7 @@ public class FrmMain extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnNewgameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewgameActionPerformed
 //        pnMain.setSize(200,200);
 //        pnMain.setLayout(new GridLayout(6, 6));
 //      
@@ -305,23 +332,26 @@ public class FrmMain extends javax.swing.JFrame {
 //        
 //        pack();     
        //  pnMain.removeAll();
+        pnMain.removeAll();
         JButton jbb = new JButton();
         jbb.setText("Acbc");
         pnMain.add(jbb);
+        
         jbb.setVisible(true);
              
-       String s="*;*;*;*;A;A;A;A;*;*;*;*;*;*;A;A;A;A;*;*;*;*;*;*;A;A;A;A;*;*;*;*;*;*;A;A;A;A;*;*;*;*;*;*;A;A;";
+       String s="-;-;-;-;A;A;A;A;-;-;-;-;-;-;A;A;A;A;-;-;-;-;-;-;A;A;A;A;-;-;-;-;-;-;A;A;A;A;-;-;-;-;-;-;A;A;";
         pnPlay pnP = new  pnPlay();
         pnP.setWords(s);
         pnP.setSizexy(6);
         
         pnMain.add(pnP);
+          
      //   pnP.setSize(300, 300);
         pnP.setVisible(true);
         pnP.Draw();
         pack();             
      
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnNewgameActionPerformed
 
     private void menuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAboutActionPerformed
         dlgAbout cp = new dlgAbout(this, true);
@@ -333,10 +363,10 @@ public class FrmMain extends javax.swing.JFrame {
         cp.setVisible(true);
     }//GEN-LAST:event_mnNewQuestionActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnHighScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHighScoreActionPerformed
         dlgHighScore cp = new dlgHighScore(this, true);
         cp.setVisible(true);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnHighScoreActionPerformed
 
     private void mnViewQuestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnViewQuestionActionPerformed
        dlgViewQuestion cp = new dlgViewQuestion(this, true);
@@ -348,10 +378,27 @@ public class FrmMain extends javax.swing.JFrame {
         cp.setVisible(true);
     }//GEN-LAST:event_btnOptionActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-         dlgLogin cp = new dlgLogin(this, true);
+    private void btnPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPauseActionPerformed
+        btnResume.setVisible(true);
+        btnPause.setVisible(false);
+        dlgLogin cp = new dlgLogin(this, true);
         cp.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnPauseActionPerformed
+    MP3 mp3 = new MP3("src/sona.mp3");
+    private void btnMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMusicActionPerformed
+        
+        mp3.play();
+    }//GEN-LAST:event_btnMusicActionPerformed
+
+    private void btnResumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResumeActionPerformed
+        btnPause.setVisible(true);
+        btnResume.setVisible(false);
+    }//GEN-LAST:event_btnResumeActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        mp3.close();
+               
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -389,11 +436,13 @@ public class FrmMain extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnHighScore;
+    private javax.swing.JButton btnMusic;
+    private javax.swing.JButton btnNewgame;
     private javax.swing.JButton btnOption;
+    private javax.swing.JButton btnPause;
+    private javax.swing.JButton btnResume;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

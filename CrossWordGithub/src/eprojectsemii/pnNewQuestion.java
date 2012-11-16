@@ -45,14 +45,17 @@ public class pnNewQuestion extends javax.swing.JPanel {
     private int keywordcount;
     //khoi tao kich thuoc cua question
 
+    
     public int getKeywordcount() {
         return keywordcount;
     }
 
+    // Set kich thuoc cua question x * x
     public void setSizexy(int x) {
         this.sizexy = x;
     }
 
+    // Lay ve gia tri cach sap xep cua question
     public String getCode() {
         String s = "";
         for (int i = 0; i < sizexy * sizexy; i++) {
@@ -65,7 +68,7 @@ public class pnNewQuestion extends javax.swing.JPanel {
         return s;
     }
 
-    //get only 1 key to jtextfield
+    //Su kien ban phim (nhap 1 key, to mau ....)
     private void listenKey(final JTextField par) {
 
         par.addKeyListener(new KeyListener() {
@@ -100,6 +103,7 @@ public class pnNewQuestion extends javax.swing.JPanel {
         });
     }
 
+    //Xu ly su kien fucus cua 1 box
     private void listenfocus(final JTextField par) {
         par.addFocusListener(new FocusListener() {
             @Override
@@ -119,6 +123,7 @@ public class pnNewQuestion extends javax.swing.JPanel {
         });
     }
 
+    //Xu ly su kien chuot..
     private void listenmouse(final JTextField par) {
 
         par.addMouseListener(new MouseListener() {
@@ -175,6 +180,7 @@ public class pnNewQuestion extends javax.swing.JPanel {
             }
         });
 
+        //Xu ly su kien cuon chuot Up-> A+   Down A-
         par.addMouseWheelListener(new MouseWheelListener() {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
@@ -200,10 +206,9 @@ public class pnNewQuestion extends javax.swing.JPanel {
 
     }
 
-    ;
-    //lay gia tri cac keyword tao dc tu hinh ve
-
-    public String[] getKeywords() {
+    
+    //lay gia tri cac keyword tao dc theo hang ngang
+    public String[] getKeywordsAcross() {
         int count = 0;
         String[] s = new String[100];
         //tao mang 2 chieu luu cac gia tri..
@@ -216,7 +221,6 @@ public class pnNewQuestion extends javax.swing.JPanel {
                 t++;
             }
         }
-
         //lay cac tu theo hang ngang..
         for (int i = 0; i < sizexy; i++) {
             String across = "";
@@ -224,10 +228,58 @@ public class pnNewQuestion extends javax.swing.JPanel {
                 across += axy[i][j];
             }
             s[count++] = across;
+        }
+//        //lay cac tu theo hang doc
+//        for (int i = 0; i < sizexy; i++) {
+//            String across = "";
+//            for (int j = 0; j < sizexy; j++) {
+//                across += axy[j][i];
+//            }
+//            s[count++] = across;
+//        }
 
+        ArrayList<String> s3 = new ArrayList<String>();
+        int ct = 0;
 
+        for (int i = 0; i < count; i++) {
+            for (String ss : s[i].split("-")) {
+                if (!ss.equals(null)) {
+                    if (ss.length() > 1 && !ss.equals("")) {
+
+                        s3.add(ss);
+                    }
+                }
+            }
         }
 
+        String[] s2 = new String[s3.size()];
+        s2 = s3.toArray(s2);
+        this.keywordcount = s2.length;
+        return s2;
+    }
+
+    //lay gia tri keyword tap theo hang doc
+    public String[] getKeywordsDown() {
+        int count = 0;
+        String[] s = new String[100];
+        //tao mang 2 chieu luu cac gia tri..
+        String[] code = getCode().split(";");
+        String[][] axy = new String[sizexy][sizexy];
+        int t = 0;
+        for (int i = 0; i < sizexy; i++) {
+            for (int j = 0; j < sizexy; j++) {
+                axy[i][j] = code[t];
+                t++;
+            }
+        }
+        //lay cac tu theo hang ngang..
+//        for (int i = 0; i < sizexy; i++) {
+//            String across = "";
+//            for (int j = 0; j < sizexy; j++) {
+//                across += axy[i][j];
+//            }
+//            s[count++] = across;
+//        }
         //lay cac tu theo hang doc
         for (int i = 0; i < sizexy; i++) {
             String across = "";
@@ -235,33 +287,22 @@ public class pnNewQuestion extends javax.swing.JPanel {
                 across += axy[j][i];
             }
             s[count++] = across;
-
-
         }
 
-        //  String[] s2 = null ;
         ArrayList<String> s3 = new ArrayList<String>();
         int ct = 0;
-//        for (int i = 0; i < s[0].length();i++){
-//            s2[i]=s[0].split("-")[i];
-//           // ct++;
-//        }
-//        for (String scenter:s)
+
         for (int i = 0; i < count; i++) {
             for (String ss : s[i].split("-")) {
                 if (!ss.equals(null)) {
                     if (ss.length() > 1 && !ss.equals("")) {
-                        // s2[ct] = new String();
-                        //s2[ct++] = ss;
+
                         s3.add(ss);
                     }
                 }
             }
         }
-//        for (String ss:s){
-//            s2[count] = "";
-//            s2[count++] = strLong(ss.split("-"));
-//        }
+
         String[] s2 = new String[s3.size()];
         s2 = s3.toArray(s2);
         this.keywordcount = s2.length;
