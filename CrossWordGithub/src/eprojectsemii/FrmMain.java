@@ -331,26 +331,26 @@ public class FrmMain extends javax.swing.JFrame {
 //        pnP.setVisible(true);
 //        
 //        pack();     
-       //  pnMain.removeAll();
+        //  pnMain.removeAll();
         pnMain.removeAll();
         JButton jbb = new JButton();
         jbb.setText("Acbc");
         pnMain.add(jbb);
-        
+
         jbb.setVisible(true);
-             
-       String s="-;-;-;-;A;A;A;A;-;-;-;-;-;-;A;A;A;A;-;-;-;-;-;-;A;A;A;A;-;-;-;-;-;-;A;A;A;A;-;-;-;-;-;-;A;A;";
-        pnPlay pnP = new  pnPlay();
+
+        String s = "-;-;-;-;A;A;A;A;-;-;-;-;-;-;A;A;A;A;-;-;-;-;-;-;A;A;A;A;-;-;-;-;-;-;A;A;A;A;-;-;-;-;-;-;A;A;";
+        pnPlay pnP = new pnPlay();
         pnP.setWords(s);
         pnP.setSizexy(6);
-        
+
         pnMain.add(pnP);
-          
-     //   pnP.setSize(300, 300);
+
+        //   pnP.setSize(300, 300);
         pnP.setVisible(true);
         pnP.Draw();
-        pack();             
-     
+        pack();
+
     }//GEN-LAST:event_btnNewgameActionPerformed
 
     private void menuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAboutActionPerformed
@@ -359,7 +359,7 @@ public class FrmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_menuAboutActionPerformed
 
     private void mnNewQuestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnNewQuestionActionPerformed
-        dlgNewQuestion cp = new dlgNewQuestion(this, true);
+        dlgNewQuestionFinal cp = new dlgNewQuestionFinal(this, true);
         cp.setVisible(true);
     }//GEN-LAST:event_mnNewQuestionActionPerformed
 
@@ -369,7 +369,7 @@ public class FrmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHighScoreActionPerformed
 
     private void mnViewQuestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnViewQuestionActionPerformed
-       dlgViewQuestion cp = new dlgViewQuestion(this, true);
+        dlgViewQuestion cp = new dlgViewQuestion(this, true);
         cp.setVisible(true);
     }//GEN-LAST:event_mnViewQuestionActionPerformed
 
@@ -386,7 +386,7 @@ public class FrmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPauseActionPerformed
     MP3 mp3 = new MP3("src/sona.mp3");
     private void btnMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMusicActionPerformed
-        
+
         mp3.play();
     }//GEN-LAST:event_btnMusicActionPerformed
 
@@ -397,7 +397,7 @@ public class FrmMain extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         mp3.close();
-               
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

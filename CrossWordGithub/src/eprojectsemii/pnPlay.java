@@ -36,12 +36,12 @@ public class pnPlay extends javax.swing.JPanel {
     private int doPoint() {
         String[] word = keywords.split(";");
         int point = 0;
-        
+
         //them dau * vao hai dau
-        for (int i=0; i < word.length;i++){
-            word[i] = "-"+ word[i]+"-";
+        for (int i = 0; i < word.length; i++) {
+            word[i] = "-" + word[i] + "-";
         }
-        
+
         String[] code = getCode().split(";");
 
         // tao mang 2 chieu luu cac gia tri..
@@ -59,8 +59,8 @@ public class pnPlay extends javax.swing.JPanel {
             for (int j = 0; j < sizexy; j++) {
                 acorss += axy[i][j];
             }
-           acorss += "-";
-            
+            acorss += "-";
+
 //            String ac[] = acorss.split("*");
 //            int max = ac[0].length();
 //            int index = 0;
@@ -70,7 +70,7 @@ public class pnPlay extends javax.swing.JPanel {
 //                }
 //            }
 //            acorss = ac[index];
-            
+
             for (String s : word) {
                 if (acorss.contains(s)) {
                     point++;
@@ -83,7 +83,7 @@ public class pnPlay extends javax.swing.JPanel {
             for (int i = 0; i < sizexy; i++) {
                 down += axy[i][j];
             }
-           down +="-";
+            down += "-";
 //             String ac[] = down.split("*");
 //            int max = ac[0].length();
 //            int index = 0;
@@ -93,7 +93,7 @@ public class pnPlay extends javax.swing.JPanel {
 //                }
 //            }
 //            down = ac[index];
-            
+
             for (String s : word) {
                 if (down.contains(s)) {
                     point++;
@@ -220,7 +220,39 @@ public class pnPlay extends javax.swing.JPanel {
 
     }
 
-    @SuppressWarnings("unchecked")
+    public void DrawToManager() {
+        this.setSize(sizexy * 30, sizexy * 30);
+
+
+        a = code.split(";");
+        jtext = new JTextField[sizexy * sizexy];
+        this.setLayout(new GridLayout(sizexy, sizexy));
+
+        for (int i = 0; i < sizexy * sizexy; i++) {
+
+            jtext[i] = new JTextField();
+            //jtext[i].setSize(30, 30);
+            jtext[i].setFont(new Font("Tahoma", 0, 14));
+            jtext[i].setHorizontalAlignment(JTextField.CENTER);
+            jtext[i].setBackground(new Color(181, 230, 29));
+            jtext[i].setBorder(new LineBorder(new Color(240, 240, 240), 1));
+
+            listenKey(jtext[i]);
+
+            this.add(jtext[i]);
+//            this.add(jtext[i]);
+            if (a[i].equals("-")) {
+                jtext[i].setVisible(false);
+                jtext[i].setText("-");
+                
+            } else {
+                jtext[i].setText(a[i]);
+                jtext[i].setEnabled(false);
+                jtext[i].setDisabledTextColor(Color.WHITE);
+            }
+        }
+    }
+        @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

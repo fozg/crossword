@@ -117,7 +117,7 @@ public class SQLUtil {
          //   Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
       con = DriverManager.getConnection(
        // "jdbc:odbc:project2;user=sa;password=123456");
-              "jdbc:sqlserver://localhost;instanceName=MSSQLSERVER;databaseName=project2;user=sa;password=123456");
+              "jdbc:sqlserver://localhost\\MSSQLSERVER;databaseName=project2;user=sa;password=123456");
         } catch (Exception ex) {
             Logger.getLogger(SQLUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -150,6 +150,7 @@ public class SQLUtil {
     public boolean execute(String cmd) {
         try {
             //Create statement
+       //     PreparedStatement stm1 = con.prepareCall(cmd);
             Statement stm = con.createStatement();
             //run the statement and return result
             stm.execute(cmd);

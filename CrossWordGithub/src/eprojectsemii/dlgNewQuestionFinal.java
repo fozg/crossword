@@ -21,10 +21,14 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
     /**
      * Creates new form dlgNewQuestionFinal
      */
+    String id;
     public dlgNewQuestionFinal(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        id = q.createID(cbDifficult.getSelectedIndex(), cbSize.getSelectedIndex());
+        txtQuestionID.setText(id);
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,7 +78,7 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
         jLabel14 = new javax.swing.JLabel();
         txtTitle = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtQuestionID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -137,6 +141,11 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
         lbSelect.setText("Select: ");
 
         cbDifficult.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Easy", "Normal", "Hard" }));
+        cbDifficult.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbDifficultActionPerformed(evt);
+            }
+        });
 
         jLabel15.setText("Step 5: Choose difficult");
 
@@ -313,10 +322,10 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
 
         jLabel16.setText("Question ID:");
 
-        jTextField1.setEditable(false);
-        jTextField1.setForeground(new java.awt.Color(153, 0, 0));
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField1.setText("easy-66-001");
+        txtQuestionID.setEditable(false);
+        txtQuestionID.setForeground(new java.awt.Color(153, 0, 0));
+        txtQuestionID.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtQuestionID.setText("easy-66-001");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -358,7 +367,7 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel16)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtQuestionID, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -374,7 +383,7 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel7)
                                 .addComponent(jLabel16)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtQuestionID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -399,6 +408,8 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
     private int size = 4;
     //Set kich thuoc cho question
     private void cbSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSizeActionPerformed
+        id = q.createID(cbDifficult.getSelectedIndex(), cbSize.getSelectedIndex());
+        txtQuestionID.setText(id);
         pnq = new pnNewQuestion();
         pnMain.removeAll();
         pnMain.repaint();
@@ -489,8 +500,10 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
     }//GEN-LAST:event_brnDelDownActionPerformed
 
     //insert question
+     Questions q = new Questions();
+     
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        Questions q = new Questions();
+       
         String code = pnq.getCode();
         String title = txtTitle.getText();
         String kwDown = ArraytoString(keywordsDown);
@@ -498,12 +511,18 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
         String hintAcross = txtHinAcross.getText();
         String hintDown = txtHintDown.getText();
         int diff = cbDifficult.getSelectedIndex()+1;
-        q.add(new Question("asdasd", size, title, code, kwAcross, kwDown, hintAcross, hintDown, diff));
+       
+        q.add(new Question(id, size, title, code, kwAcross, kwDown, hintAcross, hintDown, diff));
      //  q.add(new Question("ID1f01", 5, "Titsdfle", "3sdfw3d;sfw33", "key1sdfkey2", "sddsfifj", "oadsfidjfij", "hindsf", 34));
 //        q.add(new Question("id1", 8, "Cau hoi 1", pnq.getCode(), 
 //              "a", "b", "c", "d", 1));
     //   q.add();
     }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void cbDifficultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDifficultActionPerformed
+       id = q.createID(cbDifficult.getSelectedIndex(), cbSize.getSelectedIndex());
+       txtQuestionID.setText(id);
+    }//GEN-LAST:event_cbDifficultActionPerformed
 
     /**
      * @param args the command line arguments
@@ -579,13 +598,13 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbSelect;
     private javax.swing.JList listAcross;
     private javax.swing.JList listDown;
     private javax.swing.JPanel pnMain;
     private javax.swing.JTextArea txtHinAcross;
     private javax.swing.JTextArea txtHintDown;
+    private javax.swing.JTextField txtQuestionID;
     private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
 }
