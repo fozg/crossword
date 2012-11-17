@@ -138,11 +138,39 @@ public class Questions {
         }
         return result;
     }
-    private List<Question> questions;
-
+   
     public Question[] getAllQuestions() {
-      
-        
+        List<Question> ques= new LinkedList<Question>();
+        try {
+            String cmd = "select * from Question ";
+            ResultSet rs = new SQLUtil().executeResultSet(cmd);
+            //Clear du lieu cu
+            ques = new LinkedList<>();
+            while (rs.next()) {
+                String id = rs.getString("QuestionID");
+                int size = rs.getInt("QuestionSize");
+                String title = rs.getString("QuestionTitle");
+                String code =rs.getString("QuestionCode");
+                String keyacross = rs.getString("QuestionKeyAcross");
+                String keydown = rs.getString("QuestionKeyDown");
+                String hintacross = rs.getString("QuestionHintAcross");
+                String hintdown = rs.getString("QuestionHintDown");
+                int diff = rs.getInt("QuestionDifficult");
+                //Them mot dong gom cac du lieu nay vao bang
+                ques.add(new Question(id, size, title, code, keyacross, keydown, hintacross, hintdown, diff));
+                
+            }
+            //Set the model for the table.
+            return (Question[])ques.toArray(new Question[0]);
+        } catch (SQLException ex) {
+            Logger.getLogger(Questions.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+     private List<Question> questions;
+
+    public List<Question> getAllQuestionsList() {
+       
         try {
             String cmd = "select * from Question ";
             ResultSet rs = new SQLUtil().executeResultSet(cmd);
@@ -163,7 +191,8 @@ public class Questions {
                 
             }
             //Set the model for the table.
-            return (Question[])questions.toArray(new Question[0]);
+            //return (Question[])questions.toArray(new Question[0]);
+            return questions;
         } catch (SQLException ex) {
             Logger.getLogger(Questions.class.getName()).log(Level.SEVERE, null, ex);
             return null;
