@@ -5,6 +5,7 @@
 package eprojectsemii;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
@@ -20,7 +21,7 @@ import javax.swing.border.LineBorder;
  * @author Fozg
  */
 public class pnPlay extends javax.swing.JPanel {
-
+    
     private String[] a;
     private JTextField[] jtext;
     private int sizexy;       // kích thước của câu hỏi (sizexy * sizyxy)
@@ -41,7 +42,7 @@ public class pnPlay extends javax.swing.JPanel {
         for (int i = 0; i < word.length; i++) {
             word[i] = "-" + word[i] + "-";
         }
-
+        
         String[] code = getCode().split(";");
 
         // tao mang 2 chieu luu cac gia tri..
@@ -53,7 +54,7 @@ public class pnPlay extends javax.swing.JPanel {
                 t++;
             }
         }
-
+        
         for (int i = 0; i < sizexy; i++) {
             String acorss = "-";
             for (int j = 0; j < sizexy; j++) {
@@ -77,7 +78,7 @@ public class pnPlay extends javax.swing.JPanel {
                 }
             }
         }
-
+        
         for (int j = 0; j < sizexy; j++) {
             String down = "-";;
             for (int i = 0; i < sizexy; i++) {
@@ -100,30 +101,30 @@ public class pnPlay extends javax.swing.JPanel {
                 }
             }
         }
-
+        
         return point;
     }
-
+    
     public String getKeywords() {
         return keywords;
     }
-
+    
     public void setKeywords(String keywords) {
         this.keywords = keywords;
     }
-
+    
     private void listenKey(final JTextField par) {
-
+        
         par.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
                 par.setEditable(true);
             }
-
+            
             @Override
             public void keyPressed(KeyEvent e) {
                 int code = (int) e.getKeyChar();
-
+                
                 if (code > 64 && code < 123) {
                     if (!"".equals(par.getText())) {
                         par.setText((par.getText().substring(1) + "").toUpperCase());
@@ -133,30 +134,30 @@ public class pnPlay extends javax.swing.JPanel {
                     par.setEditable(false);
                 }
             }
-
+            
             @Override
             public void keyReleased(KeyEvent e) {
                 par.setEditable(true);
             }
         });
     }
-
+    
     public int getSizexy() {
         return sizexy;
     }
-
+    
     public void setSizexy(int sizexy) {
         this.sizexy = sizexy;
     }
-
+    
     public String getWords() {
         return code;
     }
-
+    
     public void setWords(String words) {
         this.code = words;
     }
-
+    
     public String getCode() {
         String s = "";
         for (int i = 0; i < sizexy * sizexy; i++) {
@@ -168,34 +169,36 @@ public class pnPlay extends javax.swing.JPanel {
         }
         return s;
     }
-
+    
     public pnPlay() {
 //       JButton jb = new JButton();
 //       this.add(jb);
 //       jb.setText("hello");
 //       jb.setVisible(true);
     }
-
+    private Color c ;//= new Color(0, 165, 224);
+    
     public void Draw() {
         this.setSize(sizexy * 50, sizexy * 50);
-
-
+        
+        
         a = code.split(";");
         jtext = new JTextField[sizexy * sizexy];
         this.setLayout(new GridLayout(sizexy, sizexy));
-
+        
         for (int i = 0; i < sizexy * sizexy; i++) {
-
+            
             jtext[i] = new JTextField();
             //jtext[i].setSize(30, 30);
-            jtext[i].setFont(new Font("Tahoma", 1, 18));
-            
+            jtext[i].setFont(new Font("Tahoma", 0, 22));
+            jtext[i].setForeground(Color.white);
             jtext[i].setHorizontalAlignment(JTextField.CENTER);
             jtext[i].setBackground(new Color(181, 230, 29));
+            jtext[i].setBackground(c);
             jtext[i].setBorder(new LineBorder(new Color(240, 240, 240), 1));
-
+            jtext[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
             listenKey(jtext[i]);
-
+            
             this.add(jtext[i]);
 //            this.add(jtext[i]);
             if (a[i].equals("-")) {
@@ -218,28 +221,70 @@ public class pnPlay extends javax.swing.JPanel {
 //            }
 //        }
 
-
+        
     }
+    
+    public void SetColor(Color cc) {
+        c = cc;
+    }
+    
+    public void DrawAgaint(String code) {
+        this.removeAll();
+        this.setSize(sizexy * 50, sizexy * 50);
 
+
+        //a = code.split(";");
+        a = code.split(";");
+        
+        jtext = new JTextField[sizexy * sizexy];
+        this.setLayout(new GridLayout(sizexy, sizexy));
+        
+        for (int i = 0; i < sizexy * sizexy; i++) {
+            
+            jtext[i] = new JTextField();
+            //jtext[i].setSize(30, 30);
+            jtext[i].setFont(new Font("Tahoma", 0, 22));
+            jtext[i].setForeground(Color.white);
+            jtext[i].setHorizontalAlignment(JTextField.CENTER);
+            jtext[i].setBackground(new Color(181, 230, 29));
+            jtext[i].setBackground(c);
+            jtext[i].setBorder(new LineBorder(new Color(240, 240, 240), 1));
+            jtext[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
+            listenKey(jtext[i]);
+            
+            this.add(jtext[i]);
+//            this.add(jtext[i]);
+            if (a[i].equals("-")) {
+                
+                jtext[i].setVisible(false);
+                jtext[i].setText("-");
+            } else if (!a[i].equals(" ")) {
+                jtext[i].setText(a[i]);
+            } else {
+                jtext[i].setText(" ");
+            }
+        }
+    }
+    
     public void DrawToManager() {
         this.setSize(sizexy * 30, sizexy * 30);
-
-
+        
+        
         a = code.split(";");
         jtext = new JTextField[sizexy * sizexy];
         this.setLayout(new GridLayout(sizexy, sizexy));
-
+        
         for (int i = 0; i < sizexy * sizexy; i++) {
-
+            
             jtext[i] = new JTextField();
             //jtext[i].setSize(30, 30);
             jtext[i].setFont(new Font("Tahoma", 0, 14));
             jtext[i].setHorizontalAlignment(JTextField.CENTER);
             jtext[i].setBackground(new Color(181, 230, 29));
             jtext[i].setBorder(new LineBorder(new Color(240, 240, 240), 1));
-
+            
             listenKey(jtext[i]);
-
+            
             this.add(jtext[i]);
 //            this.add(jtext[i]);
             if (a[i].equals("-")) {
@@ -253,7 +298,8 @@ public class pnPlay extends javax.swing.JPanel {
             }
         }
     }
-        @SuppressWarnings("unchecked")
+    
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

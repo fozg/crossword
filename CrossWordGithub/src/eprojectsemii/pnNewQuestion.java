@@ -45,7 +45,6 @@ public class pnNewQuestion extends javax.swing.JPanel {
     private int keywordcount;
     //khoi tao kich thuoc cua question
 
-    
     public int getKeywordcount() {
         return keywordcount;
     }
@@ -206,7 +205,6 @@ public class pnNewQuestion extends javax.swing.JPanel {
 
     }
 
-    
     //lay gia tri cac keyword tao dc theo hang ngang
     public String[] getKeywordsAcross() {
         int count = 0;

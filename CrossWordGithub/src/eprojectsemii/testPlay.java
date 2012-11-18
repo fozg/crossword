@@ -4,6 +4,7 @@
  */
 package eprojectsemii;
 
+import java.awt.Color;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -159,7 +160,7 @@ public class testPlay extends javax.swing.JDialog {
         pnMain.removeAll();
         String s="*;*;C;*;*;*;*;*;A;*;*;*;*;*;T;E;E;N;*;*;*;*;*;O;*;*;*;*;*;O;*;*;*;*;*;N;";
         s="-;-;C;A;T;H;-;-;A;-;-;-;-;-;T;E;E;N;-;-;-;-;-;O;-;-;-;-;-;O;-;-;-;-;-;N;";
-
+        pnP.SetColor(Color.darkGray);
         pnP.setKeywords("CAT;NOON;TEEN;CATH");
         pnP.setWords(s);
         pnP.setSizexy(6);

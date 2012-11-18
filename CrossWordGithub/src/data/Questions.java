@@ -231,4 +231,33 @@ public class Questions {
 
         return result;
     }
+
+    public Question getQuestionByID(String ID) {
+        try {
+            String cmd = "select * from Question where QuestionID = '" + ID + "'";
+            ResultSet rs = new SQLUtil().executeResultSet(cmd);
+            //Clear du lieu cu
+            questions = new LinkedList<>();
+            while (rs.next()) {
+                String id = rs.getString("QuestionID");
+                int size = rs.getInt("QuestionSize");
+                String title = rs.getString("QuestionTitle");
+                String code = rs.getString("QuestionCode");
+                String keyacross = rs.getString("QuestionKeyAcross");
+                String keydown = rs.getString("QuestionKeyDown");
+                String hintacross = rs.getString("QuestionHintAcross");
+                String hintdown = rs.getString("QuestionHintDown");
+                int diff = rs.getInt("QuestionDifficult");
+                //Them mot dong gom cac du lieu nay vao bang
+                return (new Question(id, size, title, code, keyacross, keydown, hintacross, hintdown, diff));
+
+            }
+            return null;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Questions.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
 }

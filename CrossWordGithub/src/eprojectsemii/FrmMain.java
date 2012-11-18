@@ -4,15 +4,20 @@
  */
 package eprojectsemii;
 
+import data.Questions;
+import entities.Question;
+import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.geom.QuadCurve2D;
 import java.io.File;
 import javax.print.attribute.standard.Media;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -58,16 +63,12 @@ public class FrmMain extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnMusic = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel(){
-            ImageIcon icon = new ImageIcon("src/icons/bgtop2.png");
-            public void paintComponent(Graphics g){
-                Dimension d = getSize();
-                g.drawImage(icon.getImage(), 0, 0, d.width, d.height, null);
-                setOpaque(false);
-                super.paintComponent(g);
-            }
-        };
-        jLabel1 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtHintAcross = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtHintDown = new javax.swing.JTextArea();
+        jButton3 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel(){
             ImageIcon icon = new ImageIcon("src/icons/crossword.png");
             public void paintComponent(Graphics g){
@@ -78,6 +79,14 @@ public class FrmMain extends javax.swing.JFrame {
             }
         };
         pnMain = new javax.swing.JPanel();
+        jToolBar2 = new javax.swing.JToolBar();
+        jButton2 = new javax.swing.JButton();
+        btnColorGreen = new javax.swing.JButton();
+        btnChangeColor2 = new javax.swing.JButton();
+        btnChangeColor3 = new javax.swing.JButton();
+        btnChangeColor4 = new javax.swing.JButton();
+        btnChangeColor5 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -89,9 +98,9 @@ public class FrmMain extends javax.swing.JFrame {
         menuAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(850, 540));
-        setMinimumSize(new java.awt.Dimension(850, 540));
-        setPreferredSize(new java.awt.Dimension(850, 540));
+        setMaximumSize(new java.awt.Dimension(1000, 540));
+        setMinimumSize(new java.awt.Dimension(1000, 540));
+        setPreferredSize(new java.awt.Dimension(1000, 540));
         setResizable(false);
 
         jToolBar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -148,6 +157,7 @@ public class FrmMain extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(181, 96, 166));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/time2.png"))); // NOI18N
+        jLabel3.setLabelFor(this);
         jLabel3.setText("00:00");
         jToolBar1.add(jLabel3);
 
@@ -194,19 +204,143 @@ public class FrmMain extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1);
 
-        jLabel1.setText("Status");
-        jPanel2.add(jLabel1);
+        txtHintAcross.setEditable(false);
+        txtHintAcross.setBackground(new java.awt.Color(240, 240, 240));
+        txtHintAcross.setColumns(20);
+        txtHintAcross.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtHintAcross.setRows(5);
+        txtHintAcross.setBorder(null);
+        jScrollPane2.setViewportView(txtHintAcross);
+
+        txtHintDown.setEditable(false);
+        txtHintDown.setBackground(new java.awt.Color(240, 240, 240));
+        txtHintDown.setColumns(20);
+        txtHintDown.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtHintDown.setRows(5);
+        txtHintDown.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jScrollPane3.setViewportView(txtHintDown);
+
+        jButton3.setText("Get Point");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(jButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton3)
+                .addGap(58, 58, 58)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel3);
 
         javax.swing.GroupLayout pnMainLayout = new javax.swing.GroupLayout(pnMain);
         pnMain.setLayout(pnMainLayout);
         pnMainLayout.setHorizontalGroup(
             pnMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 469, Short.MAX_VALUE)
+            .addGap(0, 443, Short.MAX_VALUE)
         );
         pnMainLayout.setVerticalGroup(
             pnMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        jToolBar2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jToolBar2.setFloatable(false);
+        jToolBar2.setRollover(true);
+
+        jButton2.setForeground(new java.awt.Color(0, 102, 255));
+        jButton2.setText("< Hide");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(jButton2);
+
+        btnColorGreen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/000-165-224.png"))); // NOI18N
+        btnColorGreen.setFocusable(false);
+        btnColorGreen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnColorGreen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnColorGreen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnColorGreenActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(btnColorGreen);
+
+        btnChangeColor2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/181-096-166.png"))); // NOI18N
+        btnChangeColor2.setFocusable(false);
+        btnChangeColor2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnChangeColor2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnChangeColor2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeColor2ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(btnChangeColor2);
+
+        btnChangeColor3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/246-83-20.png"))); // NOI18N
+        btnChangeColor3.setFocusable(false);
+        btnChangeColor3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnChangeColor3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnChangeColor3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeColor3ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(btnChangeColor3);
+
+        btnChangeColor4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/255-187-000.png"))); // NOI18N
+        btnChangeColor4.setFocusable(false);
+        btnChangeColor4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnChangeColor4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnChangeColor4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeColor4ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(btnChangeColor4);
+
+        btnChangeColor5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/124-187-000.png"))); // NOI18N
+        btnChangeColor5.setFocusable(false);
+        btnChangeColor5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnChangeColor5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnChangeColor5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeColor5ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(btnChangeColor5);
+
+        jLabel1.setText("Time:");
+        jToolBar2.add(jLabel1);
 
         jMenuBar1.setBorder(null);
 
@@ -272,13 +406,12 @@ public class FrmMain extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(pnMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
+                    .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,10 +419,10 @@ public class FrmMain extends javax.swing.JFrame {
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(7, 7, 7)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -308,7 +441,9 @@ public class FrmMain extends javax.swing.JFrame {
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu1ActionPerformed
-
+    Questions q = new Questions();
+    pnPlay pnP;
+    Color c = new Color(0,165,224);
     private void btnNewgameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewgameActionPerformed
 //        pnMain.setSize(200,200);
 //        pnMain.setLayout(new GridLayout(6, 6));
@@ -334,17 +469,21 @@ public class FrmMain extends javax.swing.JFrame {
 //        pack();     
         //  pnMain.removeAll();
         pnMain.removeAll();
-        JButton jbb = new JButton();
-        jbb.setText("Acbc");
-        pnMain.add(jbb);
+//        JButton jbb = new JButton();
+//        jbb.setText("Acbc");
+//        pnMain.add(jbb);
+//
+//        jbb.setVisible(true);
 
-        jbb.setVisible(true);
-
-        String s = "-;-;-;-;A;A;A;A;-;-;-;-;-;-;A;A;A;A;-;-;-;-;-;-;A;A;A;A;-;-;-;-;-;-;A;A;A;A;-;-;-;-;-;-;A;A;";
-        pnPlay pnP = new pnPlay();
+        Question ques = q.getQuestionByID("normal-66-005");
+        String s = ques.getQuestionCode();
+        pnP = new pnPlay();
         pnP.setWords(s);
-        pnP.setSizexy(6);
-
+        pnP.SetColor(c);
+        pnP.setKeywords(ques.getQuestionKeyAcross() + ques.getQuestionKeyDown());
+        pnP.setSizexy(ques.getQuestionSize());
+        txtHintAcross.setText(ques.getQuestionHintAcross());
+        txtHintDown.setText(ques.getQuestionHintDown());
         pnMain.add(pnP);
 
         //   pnP.setSize(300, 300);
@@ -385,7 +524,7 @@ public class FrmMain extends javax.swing.JFrame {
         dlgLogin cp = new dlgLogin(this, true);
         cp.setVisible(true);
     }//GEN-LAST:event_btnPauseActionPerformed
-    MP3 mp3 = new MP3("src/sona.mp3");
+    MP3 mp3 = new MP3("data/sona.mp3");
     private void btnMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMusicActionPerformed
 
         mp3.play();
@@ -400,6 +539,83 @@ public class FrmMain extends javax.swing.JFrame {
         mp3.close();
 
     }//GEN-LAST:event_jButton1ActionPerformed
+    boolean show = true;
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (show) {
+            jPanel4.setVisible(false);
+            jButton2.setText("> Show");
+            show = !show;
+        } else {
+            jPanel4.setVisible(true);
+            jButton2.setText("< Hide");
+            show = !show;
+        }
+        //  this.setSize(WIDTH-100, WIDTH);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    //change color rbg(0,165,224)
+    private void btnColorGreenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorGreenActionPerformed
+        pnMain.removeAll();
+        pnMain.repaint();
+        c = new Color(0, 165, 224);
+        pnP.SetColor(c);
+        pnMain.add(pnP);
+        pnP.setVisible(true);
+        pnP.DrawAgaint(pnP.getCode());
+        pack();
+
+    }//GEN-LAST:event_btnColorGreenActionPerformed
+
+    //181-96-166
+    private void btnChangeColor2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeColor2ActionPerformed
+        pnMain.removeAll();
+        pnMain.repaint();
+        c = new Color(181, 96, 166);
+        pnP.SetColor(c);
+        pnMain.add(pnP);
+        pnP.setVisible(true);
+        pnP.DrawAgaint(pnP.getCode());
+        pack();
+    }//GEN-LAST:event_btnChangeColor2ActionPerformed
+    //246-83-20
+    private void btnChangeColor3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeColor3ActionPerformed
+        pnMain.removeAll();
+        pnMain.repaint();
+        c = new Color(246, 83, 20);
+        pnP.SetColor(c);
+        pnMain.add(pnP);
+        pnP.setVisible(true);
+        pnP.DrawAgaint(pnP.getCode());
+        pack();
+    }//GEN-LAST:event_btnChangeColor3ActionPerformed
+
+    //255-187-0
+    private void btnChangeColor4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeColor4ActionPerformed
+        pnMain.removeAll();
+        pnMain.repaint();
+        c = new Color(255, 187, 0);
+        pnP.SetColor(c);
+        pnMain.add(pnP);
+        pnP.setVisible(true);
+        pnP.DrawAgaint(pnP.getCode());
+        pack();
+    }//GEN-LAST:event_btnChangeColor4ActionPerformed
+
+    //124 187 0
+    private void btnChangeColor5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeColor5ActionPerformed
+        pnMain.removeAll();
+        pnMain.repaint();
+        c = new Color(124, 187, 0);
+        pnP.SetColor(c);
+        pnMain.add(pnP);
+        pnP.setVisible(true);
+        pnP.DrawAgaint(pnP.getCode());
+        pack();
+    }//GEN-LAST:event_btnChangeColor5ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        JOptionPane.showMessageDialog(rootPane, pnP.getPoint());
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -437,6 +653,11 @@ public class FrmMain extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnChangeColor2;
+    private javax.swing.JButton btnChangeColor3;
+    private javax.swing.JButton btnChangeColor4;
+    private javax.swing.JButton btnChangeColor5;
+    private javax.swing.JButton btnColorGreen;
     private javax.swing.JButton btnHighScore;
     private javax.swing.JButton btnMusic;
     private javax.swing.JButton btnNewgame;
@@ -444,6 +665,8 @@ public class FrmMain extends javax.swing.JFrame {
     private javax.swing.JButton btnPause;
     private javax.swing.JButton btnResume;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -454,12 +677,17 @@ public class FrmMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JToolBar jToolBar2;
     private javax.swing.JMenuItem menuAbout;
     private javax.swing.JMenuItem mnNewQuestion;
     private javax.swing.JMenuItem mnViewQuestion;
     private javax.swing.JPanel pnMain;
+    private javax.swing.JTextArea txtHintAcross;
+    private javax.swing.JTextArea txtHintDown;
     // End of variables declaration//GEN-END:variables
 }
