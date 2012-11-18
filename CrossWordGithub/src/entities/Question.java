@@ -22,6 +22,17 @@ public class Question {
     public Question() {
     }
 
+    public Question(int questionSize, String questionTitle, String questionCode, String questionKeyAcross, String questionKeyDown, String questionHintAcross, String questionHintDown, int questionDifficult) {
+        this.questionSize = questionSize;
+        this.questionTitle = questionTitle;
+        this.questionCode = questionCode;
+        this.questionKeyAcross = questionKeyAcross;
+        this.questionKeyDown = questionKeyDown;
+        this.questionHintAcross = questionHintAcross;
+        this.questionHintDown = questionHintDown;
+        this.questionDifficult = questionDifficult;
+    }
+
     
     public Question(String questionID, int questionSize, String questionTitle, String questionCode, String questionKeyAcross, String questionKeyDown, String questionHintAcross, String questionHintDown, int questionDifficult) {
         this.questionID = questionID;
@@ -107,7 +118,8 @@ public class Question {
         this.questionDifficult = questionDifficult;
     }
 
-  
+    
+   
     
     
     

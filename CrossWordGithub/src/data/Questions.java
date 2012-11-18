@@ -23,8 +23,9 @@ import utilities.SQLUtil;
 public class Questions {
 
     private Component rootPane;
-
+    private List<Question> questions;
     //add a question to database
+
     public void add(Question q) {
 //    
         String cmd2;
@@ -138,9 +139,10 @@ public class Questions {
         }
         return result;
     }
-   
+
+    //get question to array
     public Question[] getAllQuestions() {
-        List<Question> ques= new LinkedList<Question>();
+        List<Question> ques = new LinkedList<Question>();
         try {
             String cmd = "select * from Question ";
             ResultSet rs = new SQLUtil().executeResultSet(cmd);
@@ -150,7 +152,7 @@ public class Questions {
                 String id = rs.getString("QuestionID");
                 int size = rs.getInt("QuestionSize");
                 String title = rs.getString("QuestionTitle");
-                String code =rs.getString("QuestionCode");
+                String code = rs.getString("QuestionCode");
                 String keyacross = rs.getString("QuestionKeyAcross");
                 String keydown = rs.getString("QuestionKeyDown");
                 String hintacross = rs.getString("QuestionHintAcross");
@@ -158,19 +160,19 @@ public class Questions {
                 int diff = rs.getInt("QuestionDifficult");
                 //Them mot dong gom cac du lieu nay vao bang
                 ques.add(new Question(id, size, title, code, keyacross, keydown, hintacross, hintdown, diff));
-                
+
             }
             //Set the model for the table.
-            return (Question[])ques.toArray(new Question[0]);
+            return (Question[]) ques.toArray(new Question[0]);
         } catch (SQLException ex) {
             Logger.getLogger(Questions.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
-     private List<Question> questions;
 
+    // get question o dang List<question>
     public List<Question> getAllQuestionsList() {
-       
+
         try {
             String cmd = "select * from Question ";
             ResultSet rs = new SQLUtil().executeResultSet(cmd);
@@ -180,7 +182,7 @@ public class Questions {
                 String id = rs.getString("QuestionID");
                 int size = rs.getInt("QuestionSize");
                 String title = rs.getString("QuestionTitle");
-                String code =rs.getString("QuestionCode");
+                String code = rs.getString("QuestionCode");
                 String keyacross = rs.getString("QuestionKeyAcross");
                 String keydown = rs.getString("QuestionKeyDown");
                 String hintacross = rs.getString("QuestionHintAcross");
@@ -188,7 +190,7 @@ public class Questions {
                 int diff = rs.getInt("QuestionDifficult");
                 //Them mot dong gom cac du lieu nay vao bang
                 questions.add(new Question(id, size, title, code, keyacross, keydown, hintacross, hintdown, diff));
-                
+
             }
             //Set the model for the table.
             //return (Question[])questions.toArray(new Question[0]);
@@ -197,5 +199,36 @@ public class Questions {
             Logger.getLogger(Questions.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+
+    //Update question by id
+    public boolean UpdateQuestionById(String ID, Question q) {
+        String cmd2;
+//        
+        // String id = q.getQuestionID();
+        int size = q.getQuestionSize();
+        String title = q.getQuestionTitle();
+        String code = q.getQuestionCode();
+        String keyacross = q.getQuestionKeyAcross();
+        String keydown = q.getQuestionKeyDown();
+        String hintacross = q.getQuestionHintAcross();
+        String hintdown = q.getQuestionHintDown();
+        int diff = q.getQuestionDifficult();
+        // cmd2 = "insert into Question values('" + id + "'," + size + ",'" + title + "','" + code + "','" + keyacross + "','" + keydown + "','" + hintacross + "','" + hintdown + "'," + diff + ")";
+
+        cmd2 = "update Question set "
+                + " QuestionSize = " + size + ","
+                + " QuestionTitle = '" + title + "',"
+                + " QuestionCode = '" + code + "',"
+                + " QuestionKeyAcross = '" + keyacross + "',"
+                + " QuestionKeyDown = '" + keydown + "',"
+                + " QuestionHintAcross = '" + hintacross + "',"
+                + " QuestionHintDown = '" + hintdown + "',"
+                + " QuestionDifficult = " + diff + ","
+                + " where QuestionID = '" + ID + "'";
+
+        boolean result = new SQLUtil().execute(cmd2);
+
+        return result;
     }
 }

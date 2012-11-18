@@ -146,6 +146,7 @@ public class FrmMain extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(181, 96, 166));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/time2.png"))); // NOI18N
         jLabel3.setText("00:00");
         jToolBar1.add(jLabel3);

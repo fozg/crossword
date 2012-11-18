@@ -177,7 +177,7 @@ public class pnPlay extends javax.swing.JPanel {
     }
 
     public void Draw() {
-        this.setSize(sizexy * 40, sizexy * 40);
+        this.setSize(sizexy * 50, sizexy * 50);
 
 
         a = code.split(";");
@@ -188,7 +188,8 @@ public class pnPlay extends javax.swing.JPanel {
 
             jtext[i] = new JTextField();
             //jtext[i].setSize(30, 30);
-            jtext[i].setFont(new Font("Tahoma", 0, 14));
+            jtext[i].setFont(new Font("Tahoma", 1, 18));
+            
             jtext[i].setHorizontalAlignment(JTextField.CENTER);
             jtext[i].setBackground(new Color(181, 230, 29));
             jtext[i].setBorder(new LineBorder(new Color(240, 240, 240), 1));
