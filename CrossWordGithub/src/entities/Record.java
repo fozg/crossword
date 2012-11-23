@@ -24,6 +24,14 @@ public class Record {
         this.recordScore = recordScore;
     }
 
+    public Record(String questionID, int accountID, int recordTime, int recordScore) {
+        this.questionID = questionID;
+        this.accountID = accountID;
+        this.recordTime = recordTime;
+        this.recordScore = recordScore;
+    }
+    
+    
     public int getRecordID() {
         return recordID;
     }

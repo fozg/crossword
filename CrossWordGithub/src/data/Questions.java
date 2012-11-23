@@ -201,6 +201,39 @@ public class Questions {
         }
     }
 
+    //public Advanced Search
+    public List<Question> AdvancedSearch(String sizez, String difficultz, String wordz) {
+        List<Question> qq = new LinkedList<Question>();
+        try {
+            String cmd = "select * from Question where questionsize like '%" + sizez + "%' "
+                    + "and QuestionDifficult like '%" + difficultz + "%' "
+                    + " and (QuestionTitle like '%" + wordz + "%'  or QuestionHintAcross like '%" + wordz + "%' or QuestionHintDown like '%" + wordz + "%' )";
+            ResultSet rs = new SQLUtil().executeResultSet(cmd);
+            //Clear du lieu cu
+            qq = new LinkedList<>();
+            while (rs.next()) {
+                String id = rs.getString("QuestionID");
+                int size = rs.getInt("QuestionSize");
+                String title = rs.getString("QuestionTitle");
+                String code = rs.getString("QuestionCode");
+                String keyacross = rs.getString("QuestionKeyAcross");
+                String keydown = rs.getString("QuestionKeyDown");
+                String hintacross = rs.getString("QuestionHintAcross");
+                String hintdown = rs.getString("QuestionHintDown");
+                int diff = rs.getInt("QuestionDifficult");
+                //Them mot dong gom cac du lieu nay vao bang
+                qq.add(new Question(id, size, title, code, keyacross, keydown, hintacross, hintdown, diff));
+
+            }
+            //Set the model for the table.
+            //return (Question[])questions.toArray(new Question[0]);
+            return qq;
+        } catch (SQLException ex) {
+            Logger.getLogger(Questions.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
     //Update question by id
     public boolean UpdateQuestionById(String ID, Question q) {
         String cmd2;
@@ -224,7 +257,7 @@ public class Questions {
                 + " QuestionKeyDown = '" + keydown + "',"
                 + " QuestionHintAcross = '" + hintacross + "',"
                 + " QuestionHintDown = '" + hintdown + "',"
-                + " QuestionDifficult = " + diff + ","
+                + " QuestionDifficult = " + diff + ""
                 + " where QuestionID = '" + ID + "'";
 
         boolean result = new SQLUtil().execute(cmd2);
@@ -259,5 +292,16 @@ public class Questions {
             return null;
         }
 
+    }
+
+    public void DeleteQuestion(String id) {
+        String cmd = "delete from question where Questionid = '" + id + "'";
+
+        boolean result = new SQLUtil().execute(cmd);
+        if (result) {
+            JOptionPane.showMessageDialog(rootPane, "Delete successfully");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Couldn't delete the Question");
+        }
     }
 }

@@ -10,16 +10,34 @@ package entities;
  */
 public class Saved {
     private int saveID;
+    private int saveUserID;
     private String questionID;
     private String savedCode;
     private int saveTime;
 
-    public Saved(int saveID, String questionID, String savedCode, int saveTime) {
-        this.saveID = saveID;
+    public Saved(int saveUserID, String questionID, String savedCode, int saveTime) {
+        this.saveUserID = saveUserID;
         this.questionID = questionID;
         this.savedCode = savedCode;
         this.saveTime = saveTime;
     }
+
+    public Saved(int saveID, int saveUserID, String questionID, String savedCode, int saveTime) {
+        this.saveID = saveID;
+        this.saveUserID = saveUserID;
+        this.questionID = questionID;
+        this.savedCode = savedCode;
+        this.saveTime = saveTime;
+    }
+
+    public int getSaveUserID() {
+        return saveUserID;
+    }
+
+    public void setSaveUserID(int saveUserID) {
+        this.saveUserID = saveUserID;
+    }
+
 
     public int getSaveID() {
         return saveID;

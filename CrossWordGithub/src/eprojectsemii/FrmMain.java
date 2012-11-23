@@ -5,20 +5,29 @@
 package eprojectsemii;
 
 import data.Questions;
+import data.Records;
+import data.Saveds;
 import entities.Question;
+import entities.Record;
+import entities.Saved;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.QuadCurve2D;
 import java.io.File;
+import java.util.List;
+import java.util.Random;
 import javax.print.attribute.standard.Media;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 
 /**
  *
@@ -26,11 +35,53 @@ import javax.swing.JTextField;
  */
 public class FrmMain extends javax.swing.JFrame {
 
+    Timer t = null;
+    int ss = 300;
+    int hh, mm, se = 0;
+    Question question;
+    int totalword;
+    int role = 3;
+    String username;
+    int userID = 0;
+    int size = 0;
+    int diff = 0;
+    Saveds saved = new Saveds();
+
     /**
      * Creates new form FrmMain
      */
     public FrmMain() {
         initComponents();
+
+        //Phan quyen khi vao
+        btnLogin.setVisible(true);
+        txtLogin.setText("Hello: " + "Guest");
+        mnQuestion.setVisible(false);
+        mnRecord.setVisible(false);
+        btnSave.setVisible(false);
+        mnProfile.setVisible(false);
+        mnAccount.setVisible(false);
+        btnFinsh.setEnabled(false);
+        btnPause.setEnabled(false);
+        btnResume.setEnabled(false);
+
+
+        t = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                --ss;
+                lbTime.setText(display(ss));
+                if (ss == 0) {
+                    //  lbTime.setText("05:0");
+                    lbTime.setText("Time Out");
+                    lbTime.setForeground(Color.RED);
+                    t.stop();
+                    finish();
+                }
+
+            }
+        });
+
         btnResume.setVisible(false);
     }
 
@@ -56,19 +107,19 @@ public class FrmMain extends javax.swing.JFrame {
         btnNewgame = new javax.swing.JButton();
         btnPause = new javax.swing.JButton();
         btnResume = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        btnFinsh = new javax.swing.JButton();
         btnOption = new javax.swing.JButton();
         btnHighScore = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        btnMusic = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtHintAcross = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtHintDown = new javax.swing.JTextArea();
-        jButton3 = new javax.swing.JButton();
+        lbQuestionName = new javax.swing.JLabel();
+        lbTotalword = new javax.swing.JLabel();
+        lbQuestionID = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel(){
             ImageIcon icon = new ImageIcon("src/icons/crossword.png");
             public void paintComponent(Graphics g){
@@ -86,14 +137,27 @@ public class FrmMain extends javax.swing.JFrame {
         btnChangeColor3 = new javax.swing.JButton();
         btnChangeColor4 = new javax.swing.JButton();
         btnChangeColor5 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        btnChangecolor6 = new javax.swing.JButton();
+        lbTime = new javax.swing.JTextField();
+        jToolBar3 = new javax.swing.JToolBar();
+        btnMusic = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        lbInfo = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        txtLogin = new javax.swing.JLabel();
+        btnLogin = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        mnQuestion = new javax.swing.JMenu();
         mnNewQuestion = new javax.swing.JMenuItem();
         mnViewQuestion = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        mnRecord = new javax.swing.JMenu();
+        mnViewallrecord = new javax.swing.JMenuItem();
+        mnAccount = new javax.swing.JMenu();
+        mnProfile = new javax.swing.JMenuItem();
+        mnHistory = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         menuAbout = new javax.swing.JMenuItem();
 
@@ -153,13 +217,16 @@ public class FrmMain extends javax.swing.JFrame {
         });
         jToolBar1.add(btnResume);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(181, 96, 166));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/time2.png"))); // NOI18N
-        jLabel3.setLabelFor(this);
-        jLabel3.setText("00:00");
-        jToolBar1.add(jLabel3);
+        btnFinsh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/finish.png"))); // NOI18N
+        btnFinsh.setFocusable(false);
+        btnFinsh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFinsh.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFinsh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinshActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnFinsh);
 
         btnOption.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/option.png"))); // NOI18N
         btnOption.setFocusable(false);
@@ -183,26 +250,18 @@ public class FrmMain extends javax.swing.JFrame {
         });
         jToolBar1.add(btnHighScore);
 
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save1.png"))); // NOI18N
+        btnSave.setFocusable(false);
+        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnSave);
+
         jPanel1.setOpaque(false);
-
-        jLabel2.setText("Question");
-        jPanel1.add(jLabel2);
-
-        btnMusic.setText("Play music");
-        btnMusic.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMusicActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnMusic);
-
-        jButton1.setText("Stop");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1);
 
         txtHintAcross.setEditable(false);
         txtHintAcross.setBackground(new java.awt.Color(240, 240, 240));
@@ -220,38 +279,45 @@ public class FrmMain extends javax.swing.JFrame {
         txtHintDown.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jScrollPane3.setViewportView(txtHintDown);
 
-        jButton3.setText("Get Point");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        lbQuestionName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbQuestionName.setForeground(new java.awt.Color(0, 0, 153));
+        lbQuestionName.setText("Question:");
+
+        lbTotalword.setText("Total words: ");
+
+        lbQuestionID.setText("Question ID:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
-                .addGap(23, 23, 23))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(jButton3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbQuestionName)
+                            .addComponent(lbTotalword)
+                            .addComponent(lbQuestionID))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton3)
-                .addGap(58, 58, 58)
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addComponent(lbQuestionName)
+                .addGap(10, 10, 10)
+                .addComponent(lbQuestionID)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbTotalword)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel1.add(jPanel3);
@@ -267,12 +333,12 @@ public class FrmMain extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jToolBar2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jToolBar2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 153, 255)));
         jToolBar2.setFloatable(false);
         jToolBar2.setRollover(true);
 
         jButton2.setForeground(new java.awt.Color(0, 102, 255));
-        jButton2.setText("< Hide");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/onoff.png"))); // NOI18N
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -339,8 +405,79 @@ public class FrmMain extends javax.swing.JFrame {
         });
         jToolBar2.add(btnChangeColor5);
 
-        jLabel1.setText("Time:");
-        jToolBar2.add(jLabel1);
+        btnChangecolor6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/107-107-107.png"))); // NOI18N
+        btnChangecolor6.setFocusable(false);
+        btnChangecolor6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnChangecolor6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnChangecolor6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangecolor6ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(btnChangecolor6);
+
+        lbTime.setEditable(false);
+        lbTime.setBackground(new java.awt.Color(255, 255, 204));
+        lbTime.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbTime.setForeground(new java.awt.Color(0, 153, 153));
+        lbTime.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        lbTime.setText("--:--");
+        jToolBar2.add(lbTime);
+
+        jToolBar3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jToolBar3.setFloatable(false);
+        jToolBar3.setRollover(true);
+
+        btnMusic.setText("Play music");
+        btnMusic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMusicActionPerformed(evt);
+            }
+        });
+        jToolBar3.add(btnMusic);
+
+        jButton1.setText("Stop");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar3.add(jButton1);
+
+        lbInfo.setText(":");
+        jToolBar3.add(lbInfo);
+
+        txtLogin.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtLogin.setForeground(new java.awt.Color(153, 0, 0));
+        txtLogin.setText("Hello: Guest");
+
+        btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtLogin)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnLogin)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtLogin)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
 
         jMenuBar1.setBorder(null);
 
@@ -351,17 +488,12 @@ public class FrmMain extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem1.setText("New Question");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
+        jMenuItem2.setText("Exit");
+        jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Question");
+        mnQuestion.setText("Question");
 
         mnNewQuestion.setText("New Question");
         mnNewQuestion.addActionListener(new java.awt.event.ActionListener() {
@@ -369,7 +501,7 @@ public class FrmMain extends javax.swing.JFrame {
                 mnNewQuestionActionPerformed(evt);
             }
         });
-        jMenu2.add(mnNewQuestion);
+        mnQuestion.add(mnNewQuestion);
 
         mnViewQuestion.setText("View Question");
         mnViewQuestion.addActionListener(new java.awt.event.ActionListener() {
@@ -377,12 +509,39 @@ public class FrmMain extends javax.swing.JFrame {
                 mnViewQuestionActionPerformed(evt);
             }
         });
-        jMenu2.add(mnViewQuestion);
+        mnQuestion.add(mnViewQuestion);
 
         jMenuItem4.setText("Delete question");
-        jMenu2.add(jMenuItem4);
+        mnQuestion.add(jMenuItem4);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(mnQuestion);
+
+        mnRecord.setText("Record");
+        mnRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnRecordActionPerformed(evt);
+            }
+        });
+
+        mnViewallrecord.setText("View all records");
+        mnViewallrecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnViewallrecordActionPerformed(evt);
+            }
+        });
+        mnRecord.add(mnViewallrecord);
+
+        jMenuBar1.add(mnRecord);
+
+        mnAccount.setText("Account");
+
+        mnProfile.setText("Profile");
+        mnAccount.add(mnProfile);
+
+        mnHistory.setText("History");
+        mnAccount.add(mnHistory);
+
+        jMenuBar1.add(mnAccount);
 
         jMenu3.setText("Help");
 
@@ -406,92 +565,138 @@ public class FrmMain extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(pnMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
-                    .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jToolBar2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-//        NewJInternalFrame fnq = new NewJInternalFrame();
-//        dtpMain.add(fnq);
-//        fnq.show();
-        dlgLogin cp = new dlgLogin(this, true);
-        cp.setVisible(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-        // TODO add your handling code here:
+        //exit
     }//GEN-LAST:event_jMenu1ActionPerformed
     Questions q = new Questions();
     pnPlay pnP;
-    Color c = new Color(0,165,224);
+    Color c = new Color(0, 165, 224);
+    int temp1, temp2;
+    boolean tempbool = true;
     private void btnNewgameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewgameActionPerformed
-//        pnMain.setSize(200,200);
-//        pnMain.setLayout(new GridLayout(6, 6));
-//      
-//       
-//        for (int i = 0; i < 6; i++) {
-//               for (int j = 0; j < 6; j++) {
-//               JButton jb = new JButton();
-//                jb.setSize(20, 20);
-//                jb.setText("A");
-//                pnMain.add(jb);
-//            }
-//        }
-//        pnMain.removeAll();
-//        pnMain.repaint();
-//        String s="*;*;*;*;A;A;A;A;*;*;*;*;*;*;A;A;A;A;*;*;*;*;*;*;A;A;A;A;*;*;*;*;*;*;A;A;A;A;*;*;*;*;*;*;A;A;";
-//        pnPlay pnP = new  pnPlay(s,6);
-//        pnMain.setSize(400, 400);
-//     //   pnP.setSize(400, 400);
-//        pnMain.add(pnP);
-//        pnP.setVisible(true);
-//        
-//        pack();     
-        //  pnMain.removeAll();
-        pnMain.removeAll();
-//        JButton jbb = new JButton();
-//        jbb.setText("Acbc");
-//        pnMain.add(jbb);
-//
-//        jbb.setVisible(true);
 
-        Question ques = q.getQuestionByID("normal-66-005");
-        String s = ques.getQuestionCode();
+
+
+        pnMain.removeAll();
+        pnMain.repaint();
+
+        lbTime.setForeground(new Color(0, 153, 153));
+
+
+        String ssize;
+        String sdiff;
+        if (size == 0) {
+            ssize = "";
+        } else {
+            ssize = size + "";
+        }
+        if (diff == 0) {
+            sdiff = "";
+        } else {
+            sdiff = diff + "";
+        }
+        List<Question> sq = q.AdvancedSearch(ssize + "", sdiff + "", "");
+        if (sq.size() == 0) {
+            JOptionPane.showMessageDialog(this, "No question have difficult and size :(, please choose again.");
+            return;
+        } else {
+            //question = q.getQuestionByID("normal-66-005");
+            Random generator = new Random();
+            int roll;
+
+            roll = generator.nextInt(sq.size());
+            tempbool = !tempbool;
+            if (tempbool) {
+                temp1 = roll;
+                if (temp2 == roll) {
+                    roll = generator.nextInt(sq.size());
+                }
+            } else {
+                temp2 = roll;
+                if (temp1 == roll) {
+                    roll = generator.nextInt(sq.size());
+                }
+            }
+
+
+            question = sq.get(roll);
+            btnFinsh.setEnabled(true);
+            btnFinsh.setEnabled(true);
+            btnPause.setEnabled(true);
+            btnResume.setEnabled(true);
+        }
+
+
+
+
+        final String s = question.getQuestionCode();
         pnP = new pnPlay();
         pnP.setWords(s);
         pnP.SetColor(c);
-        pnP.setKeywords(ques.getQuestionKeyAcross() + ques.getQuestionKeyDown());
-        pnP.setSizexy(ques.getQuestionSize());
-        txtHintAcross.setText(ques.getQuestionHintAcross());
-        txtHintDown.setText(ques.getQuestionHintDown());
+        pnP.setKeywords(question.getQuestionKeyAcross() + question.getQuestionKeyDown());
+        pnP.setSizexy(question.getQuestionSize());
+        txtHintAcross.setText(question.getQuestionHintAcross());
+        txtHintDown.setText(question.getQuestionHintDown());
+        lbQuestionName.setText("Question: " + question.getQuestionTitle());
+        totalword = question.getQuestionKeyAcross().split(";").length + question.getQuestionKeyDown().split(";").length;
+        lbTotalword.setText("Total words: " + totalword);
+        lbQuestionID.setText("Question ID: " + question.getQuestionID());
         pnMain.add(pnP);
 
         //   pnP.setSize(300, 300);
         pnP.setVisible(true);
         pnP.Draw();
         pack();
+        ss = totalword * 60;
+        t.start();
 
     }//GEN-LAST:event_btnNewgameActionPerformed
+    int b, cc, d, e = 0;
+
+    private String display(int second) {
+        if (second > 0 && second < 86399) {
+            b = second / 3600;
+            cc = second % 3600;
+            d = cc / 60;
+            e = cc % 60;
+        }
+        //  return b + ":" + d + ":" + e;
+        return d + ":" + e;
+    }
 
     private void menuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAboutActionPerformed
         dlgAbout cp = new dlgAbout(this, true);
@@ -516,13 +721,21 @@ public class FrmMain extends javax.swing.JFrame {
     private void btnOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOptionActionPerformed
         dlgOption cp = new dlgOption(this, true);
         cp.setVisible(true);
+        size = cp.getSizez();
+        diff = cp.getDiff();
+        lbInfo.setText("Question next: Diff " + diff + "; Size:" + size);
+
+
     }//GEN-LAST:event_btnOptionActionPerformed
 
     private void btnPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPauseActionPerformed
         btnResume.setVisible(true);
         btnPause.setVisible(false);
-        dlgLogin cp = new dlgLogin(this, true);
-        cp.setVisible(true);
+//        dlgLogin cp = new dlgLogin(this, true);
+//        cp.setVisible(true);
+        //if (t != null) {
+        t.stop();
+        //}
     }//GEN-LAST:event_btnPauseActionPerformed
     MP3 mp3 = new MP3("data/sona.mp3");
     private void btnMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMusicActionPerformed
@@ -533,6 +746,7 @@ public class FrmMain extends javax.swing.JFrame {
     private void btnResumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResumeActionPerformed
         btnPause.setVisible(true);
         btnResume.setVisible(false);
+        t.restart();
     }//GEN-LAST:event_btnResumeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -543,11 +757,11 @@ public class FrmMain extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (show) {
             jPanel4.setVisible(false);
-            jButton2.setText("> Show");
+            //   jButton2.setText("> Show");
             show = !show;
         } else {
             jPanel4.setVisible(true);
-            jButton2.setText("< Hide");
+            //  jButton2.setText("< Hide");
             show = !show;
         }
         //  this.setSize(WIDTH-100, WIDTH);
@@ -613,9 +827,180 @@ public class FrmMain extends javax.swing.JFrame {
         pack();
     }//GEN-LAST:event_btnChangeColor5ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        JOptionPane.showMessageDialog(rootPane, pnP.getPoint());
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btnFinshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinshActionPerformed
+
+        finish();
+    }//GEN-LAST:event_btnFinshActionPerformed
+    private void finish() {
+        Records record = new Records();
+        String ques = question.getQuestionID();
+        int user = userID;
+        btnFinsh.setEnabled(false);
+        int time = totalword * 60 - ss;
+        int score = (ss * pnP.getPoint()) / totalword;
+        record.createRecord(new Record(ques, user, time, score));
+        //JOptionPane.showMessageDialog(rootPane, pnP.getPoint());
+////         dlgFinish cp = new dlgFinish(this, true);
+////         cp.setPoint(pnP.getPoint());
+////         cp.setQuestion(question.getQuestionTitle());
+////         cp.setTime(ss);
+        t.stop();
+        dlgFinish cp = new dlgFinish(question.getQuestionTitle(), score, time);
+        cp.setVisible(true);
+    }
+    //color 107 107 107
+    private void btnChangecolor6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangecolor6ActionPerformed
+        pnMain.removeAll();
+        pnMain.repaint();
+        c = new Color(107, 107, 107);
+        pnP.SetColor(c);
+        pnMain.add(pnP);
+        pnP.setVisible(true);
+        pnP.DrawAgaint(pnP.getCode());
+        pack();
+    }//GEN-LAST:event_btnChangecolor6ActionPerformed
+
+    private void mnViewallrecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnViewallrecordActionPerformed
+        dlgViewRecord cp = new dlgViewRecord(this, true);
+        cp.setVisible(true);
+    }//GEN-LAST:event_mnViewallrecordActionPerformed
+
+    //Show dialog record view
+    private void mnRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRecordActionPerformed
+    }//GEN-LAST:event_mnRecordActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+
+        dlgLogin cp = new dlgLogin(this, true);
+        cp.setVisible(true);
+
+        username = cp.getUsername();
+        role = cp.getRole();
+        userID = cp.getId();
+
+        if (role == 2) {
+            btnLogin.setVisible(false);
+            txtLogin.setText("Hello: " + username);
+            mnQuestion.setVisible(false);
+            mnRecord.setVisible(false);
+            btnSave.setVisible(true);
+            mnProfile.setVisible(true);
+            mnAccount.setVisible(true);
+        }
+        if (role == 3) {
+            btnLogin.setVisible(true);
+            txtLogin.setText("Hello: " + "Guest");
+            mnQuestion.setVisible(false);
+            mnRecord.setVisible(false);
+            btnSave.setVisible(false);
+            mnProfile.setVisible(false);
+            mnAccount.setVisible(false);
+        }
+        if (role == 1) {
+            btnLogin.setVisible(false);
+            txtLogin.setText("Hello: " + username);
+            mnQuestion.setVisible(true);
+            mnRecord.setVisible(true);
+            btnSave.setVisible(true);
+            mnProfile.setVisible(true);
+            mnAccount.setVisible(false);
+        }
+        int iddelete = 0;
+
+
+        for (Saved s : saved.getAllSaved()) {
+
+            if (s.getSaveUserID() == userID) {
+                if (JOptionPane.showConfirmDialog(rootPane, "Do you want load saved game?", "Save game", JOptionPane.OK_CANCEL_OPTION) == 0) {
+
+                    iddelete = s.getSaveID();
+                    Question ques = new Questions().getQuestionByID(s.getQuestionID());
+                    pnMain.removeAll();
+                    pnMain.repaint();
+
+                    lbTime.setForeground(new Color(0, 153, 153));
+
+
+                    String ssize;
+                    String sdiff;
+                    if (size == 0) {
+                        ssize = "";
+                    } else {
+                        ssize = size + "";
+                    }
+                    if (diff == 0) {
+                        sdiff = "";
+                    } else {
+                        sdiff = diff + "";
+                    }
+                    List<Question> sq = q.AdvancedSearch(ssize + "", sdiff + "", "");
+                    if (sq.size() == 0) {
+                        JOptionPane.showMessageDialog(this, "No question have difficult and size :(, please choose again.");
+                        return;
+                    } else {
+                        //question = q.getQuestionByID("normal-66-005");
+                        Random generator = new Random();
+                        int roll;
+
+                        roll = generator.nextInt(sq.size());
+                        tempbool = !tempbool;
+                        if (tempbool) {
+                            temp1 = roll;
+                            if (temp2 == roll) {
+                                roll = generator.nextInt(sq.size());
+                            }
+                        } else {
+                            temp2 = roll;
+                            if (temp1 == roll) {
+                                roll = generator.nextInt(sq.size());
+                            }
+                        }
+
+
+                        question = sq.get(roll);
+                        btnFinsh.setEnabled(true);
+                        btnFinsh.setEnabled(true);
+                        btnPause.setEnabled(true);
+                        btnResume.setEnabled(true);
+                    }
+
+
+
+
+                    final String s1 = s.getQuestionID();
+                    pnP = new pnPlay();
+                    pnP.setWords(ques.getQuestionKeyAcross() + ques.getQuestionKeyDown());
+                    pnP.SetColor(c);
+                    pnP.setKeywords(ques.getQuestionKeyAcross() + ques.getQuestionKeyDown());
+                    pnP.setSizexy(ques.getQuestionSize());
+                    txtHintAcross.setText(ques.getQuestionHintAcross());
+                    txtHintDown.setText(ques.getQuestionHintDown());
+                    lbQuestionName.setText("Question: " + ques.getQuestionTitle());
+                    totalword = ques.getQuestionKeyAcross().split(";").length + ques.getQuestionKeyDown().split(";").length;
+                    lbTotalword.setText("Total words: " + totalword);
+                    lbQuestionID.setText("Question ID: " + ques.getQuestionID());
+                    pnMain.add(pnP);
+
+                    //   pnP.setSize(300, 300);
+                    pnP.setVisible(true);
+                    pnP.DrawAgaint(s.getSavedCode());
+                    pack();
+                    ss = s.getSaveTime();
+                    t.start();
+                    break;
+                }
+            }
+        }
+        saved.DeleteSaved(iddelete);
+    }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        if (JOptionPane.showConfirmDialog(rootPane, "Do you want save this game and exit?", "Save game", JOptionPane.OK_CANCEL_OPTION) == 0) {
+
+            saved.createSaved(new Saved(userID, question.getQuestionID(), pnP.getCode(), ss));
+              System.exit(0);
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -657,37 +1042,50 @@ public class FrmMain extends javax.swing.JFrame {
     private javax.swing.JButton btnChangeColor3;
     private javax.swing.JButton btnChangeColor4;
     private javax.swing.JButton btnChangeColor5;
+    private javax.swing.JButton btnChangecolor6;
     private javax.swing.JButton btnColorGreen;
+    private javax.swing.JButton btnFinsh;
     private javax.swing.JButton btnHighScore;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnMusic;
     private javax.swing.JButton btnNewgame;
     private javax.swing.JButton btnOption;
     private javax.swing.JButton btnPause;
     private javax.swing.JButton btnResume;
+    private javax.swing.JButton btnSave;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
+    private javax.swing.JToolBar jToolBar3;
+    private javax.swing.JLabel lbInfo;
+    private javax.swing.JLabel lbQuestionID;
+    private javax.swing.JLabel lbQuestionName;
+    private javax.swing.JTextField lbTime;
+    private javax.swing.JLabel lbTotalword;
     private javax.swing.JMenuItem menuAbout;
+    private javax.swing.JMenu mnAccount;
+    private javax.swing.JMenuItem mnHistory;
     private javax.swing.JMenuItem mnNewQuestion;
+    private javax.swing.JMenuItem mnProfile;
+    private javax.swing.JMenu mnQuestion;
+    private javax.swing.JMenu mnRecord;
     private javax.swing.JMenuItem mnViewQuestion;
+    private javax.swing.JMenuItem mnViewallrecord;
     private javax.swing.JPanel pnMain;
     private javax.swing.JTextArea txtHintAcross;
     private javax.swing.JTextArea txtHintDown;
+    private javax.swing.JLabel txtLogin;
     // End of variables declaration//GEN-END:variables
 }

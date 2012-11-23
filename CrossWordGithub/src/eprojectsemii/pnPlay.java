@@ -9,8 +9,14 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -62,15 +68,6 @@ public class pnPlay extends javax.swing.JPanel {
             }
             acorss += "-";
 
-//            String ac[] = acorss.split("*");
-//            int max = ac[0].length();
-//            int index = 0;
-//            for (int k = 0; k < ac.length; k++) {
-//                if (ac[k].length() > max) {
-//                    index = k;
-//                }
-//            }
-//            acorss = ac[index];
 
             for (String s : word) {
                 if (acorss.contains(s)) {
@@ -85,15 +82,6 @@ public class pnPlay extends javax.swing.JPanel {
                 down += axy[i][j];
             }
             down += "-";
-//             String ac[] = down.split("*");
-//            int max = ac[0].length();
-//            int index = 0;
-//            for (int k = 0; k < ac.length; k++) {
-//                if (ac[k].length() > max) {
-//                    index = k;
-//                }
-//            }
-//            down = ac[index];
 
             for (String s : word) {
                 if (down.contains(s)) {
@@ -112,23 +100,56 @@ public class pnPlay extends javax.swing.JPanel {
     public void setKeywords(String keywords) {
         this.keywords = keywords;
     }
-    
+
+//    private void listenKey(final JTextField par) {
+//        
+//        par.addKeyListener(new KeyListener() {
+//            @Override
+//            public void keyTyped(KeyEvent e) {
+//                par.setEditable(true);
+//            }
+//            
+//            @Override
+//            public void keyPressed(KeyEvent e) {
+//                int code = (int) e.getKeyChar();
+//                
+//                if (code > 64 && code < 123) {
+//                    if (!"".equals(par.getText())) {
+//                        par.setText((par.getText().substring(1) + "").toUpperCase());
+//                        par.setEditable(true);
+//                    }
+//                } else {
+//                    par.setEditable(false);
+//                }
+//            }
+//            
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//                par.setEditable(true);
+//            }
+//        });
+//    }
     private void listenKey(final JTextField par) {
         
         par.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                par.setEditable(true);
+                // par.setBackground(new Color(100, 155, 255));
+                //   par.setEditable(true);
             }
             
             @Override
             public void keyPressed(KeyEvent e) {
+                
                 int code = (int) e.getKeyChar();
+                par.setEditable(true);
                 
                 if (code > 64 && code < 123) {
                     if (!"".equals(par.getText())) {
+                        
                         par.setText((par.getText().substring(1) + "").toUpperCase());
                         par.setEditable(true);
+                        //   par.setBackground(new Color(100, 155, 255));
                     }
                 } else {
                     par.setEditable(false);
@@ -137,9 +158,109 @@ public class pnPlay extends javax.swing.JPanel {
             
             @Override
             public void keyReleased(KeyEvent e) {
+                //    par.setBackground(new Color(100, 155, 255));
                 par.setEditable(true);
             }
         });
+    }
+    
+    private void listenfocus(final JTextField par) {
+        par.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+               // par.setBorder(new LineBorder(Color.red, 1));
+                
+            }
+            
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (" ".equals(par.getText())) {
+                 //   par.setBorder(new LineBorder(new Color(240, 240, 240), 1));
+                    par.setText(" ");
+                    // par.setEnabled(false);
+                }
+                
+            }
+        });
+    }
+    
+    private void listenmouse(final JTextField par) {
+        
+        par.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    //  par.setBackground(new Color(100, 155, 255));
+//                    par.setEnabled(true);
+                } else {
+                    // par.setBackground(new Color(255, 255, 255));
+                    par.setText(" ");
+                    //  par.setEnabled(false);
+
+                    
+                }
+            }
+            
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    // par.setBackground(new Color(100, 155, 255));
+//                    par.setEnabled(true);
+                } else {
+                    //par.setBackground(new Color(255, 255, 255));
+                    par.setText(" ");
+                    //  par.setEnabled(false);
+                }
+            }
+            
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    //par.setBackground(new Color(100, 155, 255));
+//                    par.setEnabled(true);
+                } else {
+                    // par.setBackground(new Color(255, 255, 255));
+                    par.setText(" ");
+                    //par.setEnabled(false);
+                }
+            }
+            
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                //    par.setBackground(new Color(255, 255, 255));
+                par.setBorder(new LineBorder(Color.red, 1));
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent e) {
+               par.setBorder(new LineBorder(new Color(240, 240, 240), 1));
+            }
+        });
+
+        //Xu ly su kien cuon chuot Up-> A+   Down A-
+        par.addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                if (par.getText().equals(" ")) {
+                    par.setText("A");
+                    
+                } else {
+                    par.setText(par.getText().toUpperCase());
+                    if (e.getWheelRotation() < 0) {
+                        char cc = par.getText().toCharArray()[0];
+                        par.setText("" + (char) ((int) (cc - 65 + 1) % 26 + 65));
+                    } else {
+                        char cc = par.getText().toCharArray()[0];
+                        if ((int) cc == 65) {
+                            par.setText("Z");
+                        } else {
+                            par.setText("" + (char) ((int) (cc - 65 - 1) % 26 + 65));
+                        }
+                    }
+                }
+            }
+        });
+        
     }
     
     public int getSizexy() {
@@ -176,11 +297,11 @@ public class pnPlay extends javax.swing.JPanel {
 //       jb.setText("hello");
 //       jb.setVisible(true);
     }
-    private Color c ;//= new Color(0, 165, 224);
-    
+    private Color c;//= new Color(0, 165, 224);
+
     public void Draw() {
         this.setSize(sizexy * 50, sizexy * 50);
-        
+        this.setLocation(40*((8-sizexy)/2), 40*((8-sizexy)/2));
         
         a = code.split(";");
         jtext = new JTextField[sizexy * sizexy];
@@ -198,7 +319,8 @@ public class pnPlay extends javax.swing.JPanel {
             jtext[i].setBorder(new LineBorder(new Color(240, 240, 240), 1));
             jtext[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
             listenKey(jtext[i]);
-            
+            listenmouse(jtext[i]);
+            listenfocus(jtext[i]);
             this.add(jtext[i]);
 //            this.add(jtext[i]);
             if (a[i].equals("-")) {
@@ -251,6 +373,8 @@ public class pnPlay extends javax.swing.JPanel {
             jtext[i].setBorder(new LineBorder(new Color(240, 240, 240), 1));
             jtext[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
             listenKey(jtext[i]);
+            listenmouse(jtext[i]);
+            listenfocus(jtext[i]);
             
             this.add(jtext[i]);
 //            this.add(jtext[i]);
@@ -280,7 +404,7 @@ public class pnPlay extends javax.swing.JPanel {
             //jtext[i].setSize(30, 30);
             jtext[i].setFont(new Font("Tahoma", 0, 14));
             jtext[i].setHorizontalAlignment(JTextField.CENTER);
-            jtext[i].setBackground(new Color(181, 230, 29));
+            jtext[i].setBackground(new Color(40, 40, 40));
             jtext[i].setBorder(new LineBorder(new Color(240, 240, 240), 1));
             
             listenKey(jtext[i]);

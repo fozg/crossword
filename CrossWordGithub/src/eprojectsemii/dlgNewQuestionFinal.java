@@ -81,11 +81,13 @@ public class dlgNewQuestionFinal extends javax.swing.JDialog {
         txtQuestionID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Create question");
         setResizable(false);
 
         jLabel1.setText("Chose size: ");
 
         cbSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "4 x 4", "6 x 6", "8 x 8" }));
+        cbSize.setToolTipText("");
         cbSize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSizeActionPerformed(evt);

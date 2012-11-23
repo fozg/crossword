@@ -1,0 +1,1 @@
+jdbc:sqlserver://localhost\\MSSQLSERVER;databaseName=project2;user=sa;password=123456

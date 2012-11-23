@@ -26,6 +26,7 @@ public class dlgViewQuestion extends javax.swing.JDialog {
      */
     private DefaultTableModel dtm;
     private Question[] question;
+    Questions q = new Questions();
 
     public dlgViewQuestion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -65,12 +66,12 @@ public class dlgViewQuestion extends javax.swing.JDialog {
 //        } catch (SQLException ex) {
 //            Logger.getLogger(dlgViewQuestion.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-        Questions q = new Questions();
+
         question = q.getAllQuestions();
         List<Question> queslist = q.getAllQuestionsList();
-        
-        for (Question qq:queslist){
-             dtm.addRow(new Object[]{qq.getQuestionTitle(), qq.getQuestionID(), qq.getQuestionDifficult(), qq.getQuestionSize()});
+
+        for (Question qq : queslist) {
+            dtm.addRow(new Object[]{qq.getQuestionTitle(), qq.getQuestionID(), qq.getQuestionDifficult(), qq.getQuestionSize()});
         }
 //        for (Question qq : q.getAllQuestions()) {
 //            dtm.addRow(new Object[]{qq.getQuestionTitle(), qq.getQuestionID(), qq.getQuestionDifficult(), qq.getQuestionSize()});
@@ -87,13 +88,12 @@ public class dlgViewQuestion extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        txtSearch = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tQuestion = new javax.swing.JTable();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
@@ -109,6 +109,10 @@ public class dlgViewQuestion extends javax.swing.JDialog {
         jScrollPane3 = new javax.swing.JScrollPane();
         txtHintDown = new javax.swing.JTextArea();
         lbKeyworddown = new javax.swing.JLabel();
+        cbSize = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        cbDifficult = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Question manager");
@@ -117,6 +121,11 @@ public class dlgViewQuestion extends javax.swing.JDialog {
         jLabel3.setText("Find");
 
         jButton1.setText("Search");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Add new");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -125,11 +134,19 @@ public class dlgViewQuestion extends javax.swing.JDialog {
             }
         });
 
-        jButton4.setText("Edit");
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Delete");
-
-        jButton6.setText("Advanced search");
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         tQuestion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         tQuestion.setModel(new javax.swing.table.DefaultTableModel(
@@ -206,6 +223,14 @@ public class dlgViewQuestion extends javax.swing.JDialog {
 
         lbKeyworddown.setText("Keywords down:");
 
+        cbSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "4x4", "6x6", "8x8" }));
+
+        jLabel1.setText("Difficult");
+
+        cbDifficult.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Easy", "Normal", "Hard" }));
+
+        jLabel2.setText("Size");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -214,17 +239,23 @@ public class dlgViewQuestion extends javax.swing.JDialog {
                 .addGap(19, 19, 19)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbDifficult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -256,15 +287,23 @@ public class dlgViewQuestion extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jButton1)
-                    .addComponent(jButton6)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jButton1)
+                            .addComponent(jButton3)
+                            .addComponent(btnEdit)
+                            .addComponent(btnDelete)
+                            .addComponent(jLabel2)
+                            .addComponent(cbSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(cbDifficult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
@@ -300,28 +339,42 @@ public class dlgViewQuestion extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    String id;
 
     private void changeselecd() {
-        String id = dtm.getValueAt(tQuestion.getSelectedRow(), 0).toString();
-       // lbCheck.setText("ID:" + id + "");
-        this.setTitle("Question Manager - "+id );
+        id = dtm.getValueAt(tQuestion.getSelectedRow(), 1).toString();
+        // lbCheck.setText("ID:" + id + "");
+        this.setTitle("Question Manager - " + id);
         pnMain.removeAll();
         pnMain.repaint();
-
+        Questions quess = new Questions();
+        Question ques = quess.getQuestionByID(id);
         // jbb.setVisible(true);
 
-        String s = question[tQuestion.getSelectedRow()].getQuestionCode();
-        int size = question[tQuestion.getSelectedRow()].getQuestionSize();
+//        String s = question[tQuestion.getSelectedRow()].getQuestionCode();
+//        int size = question[tQuestion.getSelectedRow()].getQuestionSize();
+//
+//        pnPlay pnP = new pnPlay();
+//        pnP.setWords(s);
+//        pnP.setSizexy(size);
+//
+//        pnMain.add(pnP);
+//        txtHintAcross.setText(question[tQuestion.getSelectedRow()].getQuestionHintAcross());
+//        txtHintDown.setText(question[tQuestion.getSelectedRow()].getQuestionHintDown());
+//        lbKeywordacross.setText("Keywords across:" + question[tQuestion.getSelectedRow()].getQuestionKeyAcross());
+//        lbKeyworddown.setText("Keywords down: " + question[tQuestion.getSelectedRow()].getQuestionKeyDown());
+        String s = ques.getQuestionCode();
+        int size = ques.getQuestionSize();
 
         pnPlay pnP = new pnPlay();
         pnP.setWords(s);
         pnP.setSizexy(size);
 
         pnMain.add(pnP);
-        txtHintAcross.setText(question[tQuestion.getSelectedRow()].getQuestionHintAcross());
-        txtHintDown.setText(question[tQuestion.getSelectedRow()].getQuestionHintDown());
-        lbKeywordacross.setText("Keywords across:" + question[tQuestion.getSelectedRow()].getQuestionKeyAcross() );
-        lbKeyworddown.setText("Keywords down: "+ question[tQuestion.getSelectedRow()].getQuestionKeyDown());
+        txtHintAcross.setText(ques.getQuestionHintAcross());
+        txtHintDown.setText(ques.getQuestionHintDown());
+        lbKeywordacross.setText("Keywords across:" + ques.getQuestionKeyAcross());
+        lbKeyworddown.setText("Keywords down: " + ques.getQuestionKeyDown());
         //   pnP.setSize(300, 300);
         pnP.setVisible(true);
         pnP.DrawToManager();
@@ -337,13 +390,85 @@ public class dlgViewQuestion extends javax.swing.JDialog {
 
         changeselecd();
     }//GEN-LAST:event_tQuestionKeyReleased
-
+    String searchSize = "";
+    String searchDiff = "";
+    String searchkeyword = "";
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        //this.setVisible(false);
+
         FrmMain f = new FrmMain();
         dlgNewQuestionFinal cp = new dlgNewQuestionFinal(f, true);
         cp.setVisible(true);
+        refresh();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+
+        dtm = new DefaultTableModel(
+                new String[]{"Title", "ID", "Difficult", "Size"}, 0);
+
+        Questions q = new Questions();
+
+        switch (cbSize.getSelectedIndex()) {
+            case 0:
+                searchSize = "";
+                break;
+            case 1:
+                searchSize = "4";
+                break;
+            case 2:
+                searchSize = "6";
+                break;
+            case 3:
+                searchSize = "8";
+                break;
+        }
+        switch (cbDifficult.getSelectedIndex()) {
+            case 0:
+                searchDiff = "";
+                break;
+            case 1:
+                searchDiff = "1";
+                break;
+            case 2:
+                searchDiff = "2";
+                break;
+            case 3:
+                searchDiff = "3";
+                break;
+        }
+
+        searchkeyword = txtSearch.getText();
+
+        refresh();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void refresh() {
+        dtm = new DefaultTableModel(
+                new String[]{"Title", "ID", "Difficult", "Size"}, 0);
+        question = q.getAllQuestions();
+        List<Question> queslist = q.AdvancedSearch(searchSize, searchDiff, searchkeyword);
+
+        for (Question qq : queslist) {
+            dtm.addRow(new Object[]{qq.getQuestionTitle(), qq.getQuestionID(), qq.getQuestionDifficult(), qq.getQuestionSize()});
+        }
+
+        tQuestion.setModel(dtm);
+    }
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        FrmMain f = new FrmMain();
+        dlgUpdate cp = new dlgUpdate(f, true, id);
+        // cp.setQuestionid(id);
+        cp.DrawAgain();
+        cp.setVisible(true);
+        refresh();
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    //delete question
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        q.DeleteQuestion(id);
+        refresh();
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -387,12 +512,15 @@ public class dlgViewQuestion extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JComboBox cbDifficult;
+    private javax.swing.JComboBox cbSize;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -400,7 +528,6 @@ public class dlgViewQuestion extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbHintAcross;
     private javax.swing.JLabel lbHintDown;
     private javax.swing.JLabel lbKeywordacross;
@@ -409,5 +536,6 @@ public class dlgViewQuestion extends javax.swing.JDialog {
     private javax.swing.JTable tQuestion;
     private javax.swing.JTextArea txtHintAcross;
     private javax.swing.JTextArea txtHintDown;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,10 +4,15 @@
  */
 package eprojectsemii;
 
+import data.Accounts;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +20,9 @@ import javax.swing.ImageIcon;
  */
 public class dlgLogin extends javax.swing.JDialog {
 
+    private int role = 3;
+    private String username;
+    private int id;
     /**
      * Creates new form dlgLogin
      */
@@ -33,11 +41,10 @@ public class dlgLogin extends javax.swing.JDialog {
     private void initComponents() {
 
         lbLogin = new javax.swing.JLabel();
-        lbPassord = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        passwprd = new javax.swing.JLabel();
+        btnLogin = new javax.swing.JButton();
         jToggleButton1 = new javax.swing.JToggleButton();
-        lbUser = new javax.swing.JTextField();
-        lbPassword = new javax.swing.JTextField();
+        txtusername = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel()
         {
             ImageIcon icon = new ImageIcon("src/icons/frmLoginMin.png");
@@ -49,18 +56,24 @@ public class dlgLogin extends javax.swing.JDialog {
             }
         }
         ;
+        txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Đăng nhập");
+        setTitle("Login");
         setResizable(false);
 
-        lbLogin.setText("Tên đăng nhập:");
+        lbLogin.setText("Username");
 
-        lbPassord.setText("Mật khẩu:");
+        passwprd.setText("Password");
 
-        jButton1.setText("Đăng nhập");
+        btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
-        jToggleButton1.setText("Đăng ký");
+        jToggleButton1.setText("Register");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton1ActionPerformed(evt);
@@ -87,32 +100,32 @@ public class dlgLogin extends javax.swing.JDialog {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lbLogin)
-                    .addComponent(lbPassord))
+                    .addComponent(passwprd))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbUser)
-                    .addComponent(lbPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                    .addComponent(txtusername, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                    .addComponent(txtPassword))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
+                .addContainerGap(53, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbLogin)
-                    .addComponent(lbUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtusername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(passwprd)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbPassord)
-                    .addComponent(lbPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnLogin)
                     .addComponent(jToggleButton1))
                 .addGap(37, 37, 37))
         );
@@ -128,16 +141,45 @@ public class dlgLogin extends javax.swing.JDialog {
 
 
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        Accounts a = new Accounts();
+        try {
+            if(a.CheckLogin(txtusername.getText(), txtPassword.getText())){
+                JOptionPane.showMessageDialog(rootPane, "Login success");
+                role = a.GetAccoutType(txtusername.getText());
+                username = txtusername.getText();
+                id = a.GetAccoutID(txtusername.getText());
+                this.dispose();
+            }
+            else {
+                JOptionPane.showMessageDialog(rootPane, "Wrong username or password, try again");
+            }
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(dlgLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnLoginActionPerformed
+
+    public int getRole() {
+        return role;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+    public int getId(){
+        return id;
+    }
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lbLogin;
-    private javax.swing.JLabel lbPassord;
-    private javax.swing.JTextField lbPassword;
-    private javax.swing.JTextField lbUser;
+    private javax.swing.JLabel passwprd;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtusername;
     // End of variables declaration//GEN-END:variables
 }

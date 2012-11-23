@@ -13,6 +13,21 @@ public class Account {
     private String accountName;
     private String accountPassword;
     private String accountMail;
+    private int accountType;
+
+    public Account(int accountID, String accountName, String accountPassword, String accountMail, int accountType) {
+        this.accountID = accountID;
+        this.accountName = accountName;
+        this.accountPassword = accountPassword;
+        this.accountMail = accountMail;
+        this.accountType = accountType;
+    }
+
+    public Account(String accountName, String accountPassword, String accountMail) {
+        this.accountName = accountName;
+        this.accountPassword = accountPassword;
+        this.accountMail = accountMail;
+    }
 
     public int getAccountID() {
         return accountID;
@@ -46,13 +61,11 @@ public class Account {
         this.accountMail = accountMail;
     }
 
-    public Account(int accountID, String accountName, String accountPassword, String accountMail) {
-        this.accountID = accountID;
-        this.accountName = accountName;
-        this.accountPassword = accountPassword;
-        this.accountMail = accountMail;
+    public int getAccountType() {
+        return accountType;
     }
 
-    public Account() {
+    public void setAccountType(int accountType) {
+        this.accountType = accountType;
     }
 }

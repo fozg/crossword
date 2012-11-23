@@ -45,6 +45,10 @@ public class pnNewQuestion extends javax.swing.JPanel {
     private int keywordcount;
     //khoi tao kich thuoc cua question
 
+    public void setCode(String codec) {
+        this.code = codec;
+    }
+
     public int getKeywordcount() {
         return keywordcount;
     }
@@ -85,6 +89,7 @@ public class pnNewQuestion extends javax.swing.JPanel {
 
                 if (code > 64 && code < 123) {
                     if (!"".equals(par.getText())) {
+
                         par.setText((par.getText().substring(1) + "").toUpperCase());
                         par.setEditable(true);
                         par.setBackground(new Color(100, 155, 255));
@@ -348,9 +353,43 @@ public class pnNewQuestion extends javax.swing.JPanel {
 
         }
         onlyfocus = new JTextField();
+    }
+
+    public void DrawAgaint(String codec) {
+
+        this.setSize(sizexy * 40, sizexy * 40);
+        String[] aa = codec.split(";");
+        jtext = new JTextField[sizexy * sizexy];
+        this.setLayout(new GridLayout(sizexy, sizexy));
+
+        for (int i = 0; i < sizexy * sizexy; i++) {
+
+            jtext[i] = new JTextField();
+            jtext[i].setSize(30, 30);
+            jtext[i].setFont(new Font("Tahoma", 1, 14));
+            jtext[i].setForeground(Color.white);
+            jtext[i].setHorizontalAlignment(JTextField.CENTER);
+            jtext[i].setBackground(new Color(255, 255, 255));
+            jtext[i].setBorder(new LineBorder(new Color(240, 240, 240), 1));
+            if (aa[i].equals("-")) {
+                jtext[i].setText("");
+            }
+            else 
+            {
+                jtext[i].setText(aa[i]);
+                 jtext[i].setBackground(new Color(100, 155, 255));
+            }
+            jtext[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
+            //  jtext[i].setEnabled(false);
+            keycontrol = i;
+            listenmouse(jtext[i]);
+            listenfocus(jtext[i]);
+            this.add(jtext[i]);
+            listenKey(jtext[i]);
 
 
-
+        }
+        onlyfocus = new JTextField();
     }
 
     @SuppressWarnings("unchecked")
